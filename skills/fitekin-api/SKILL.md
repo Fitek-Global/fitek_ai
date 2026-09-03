@@ -1,6 +1,6 @@
 ---
 name: fitekin-api
-description: Work with FitekIN (Fitek's invoice processing / AP automation platform) directly through its HTTP APIs, without the web UI. Use when a task mentions FitekIN, Fitek, purchase invoices, e-invoices, invoice approval workflows, purchase orders, suppliers, cost objectives / dimensions, AutoTransactions, or importing/exporting accounting data to FitekIN. Covers login and company selection, the search-restriction query format, every Web API endpoint and model, and the DataExchange import/export API.
+description: Work with FitekIN (Fitek's invoice processing / AP automation platform) directly through its HTTP APIs, without the web UI. Use when a task mentions FitekIN, Fitek, purchase invoices, e-invoices, invoice approval workflows, purchase orders, suppliers, cost objectives / dimensions, AutoTransactions, or importing/exporting accounting data to FitekIN. Covers login and company selection, the search-restriction query format, every Web API endpoint and model, the DataExchange import/export API, and the FitekIN MCP server (query_data, search_invoices, aggregate_invoices) whose OAuth token doubles as the Web API session token.
 ---
 
 # FitekIN API
@@ -27,6 +27,7 @@ Do not guess routes. Look them up:
 | Integrator import/export (separate credentials) | `references/data-exchange.md`, then `references/dataexchange-*/INDEX.md` |
 | List/search payloads (`Restrictions`, `SortItems`, `PagingOptions`) | `references/search.md` |
 | Status codes and error body | `references/errors.md` |
+| Ad-hoc queries, free-text invoice search, totals, or an MCP-capable agent runtime | `references/mcp.md` (FitekIN MCP server; same token as the Web API) |
 
 Controller names map to UI areas: `Invoice` (purchase invoices, approval, confirmation), `InvoiceRow`/`TransactionRow` (invoice lines and accounting rows), `PurchaseOrders`, `Supplier`, `CustomCostObjective`/`RelatedDimensions` (dimensions), `Account`, `VatCode`, `AutoTransactions` (coding/approval automation rules), `WorkflowTemplate`, `User`/`GroupMember`/`Roles`, `Company`, `File`, `SalesInvoice`, `ArchiveInvoice`, `Session`.
 
@@ -45,6 +46,8 @@ Controller names map to UI areas: `Invoice` (purchase invoices, approval, confir
 **AutoTransactions**: `AutoTransactions` controller. Get the rule first, change only the fields the user asked for, show the diff, then save.
 
 **Bulk import/export for an ERP**: only with integrator credentials, via `references/data-exchange.md`.
+
+**Questions the Web API cannot answer directly** (arbitrary filters across entities, free-text search over line items, sums and counts): use the FitekIN MCP server, `references/mcp.md`. If your runtime supports MCP, `claude mcp add --transport http fitekin https://<host>/AIAgent/mcp` and sign in once; the OAuth access token you get is a FitekIN session JWT and also works for every Web API call in this skill.
 
 ## Rules
 

@@ -80,6 +80,16 @@ The response's `Authorization-Token` header holds the token for the new company.
 
 `GET /webapi/api/Session/GetUserCompanies?lastCompanyGuid=<guid>` returns the full company list with access details when `userCompanies` from login is not enough.
 
+## 3a. Alternative: OAuth 2.1 through the MCP authorization server
+
+If the agent runtime speaks MCP (see `mcp.md`), the browser sign-in that `claude mcp add` triggers ends with an OAuth `access_token` from `https://<host>/AzureLogin/token`. That token **is the same FitekIN session JWT** that step 1 returns, so:
+
+- use it unchanged as `Authorization-Token` for the Web API and as `Authorization: Bearer` for `/AIAgent/mcp`;
+- steps 2, 3 and 4 above apply to it as written (sliding refresh headers, `ChangeUserLastCompany`, logout);
+- conversely, a token from `POST /LoginApi/api/Login` is accepted by the MCP tools' `authToken` parameter and as the MCP bearer header.
+
+One login, one token, both channels. Today the `/authorize` sign-in is the Microsoft EntraID leg; FitekIN username/password sign-in at `/authorize` is planned. Users without an EntraID identity take step 1.
+
 ## 4. Log out
 
 `POST {BASE_URL}/webapi/api/Login/Logout` ends the session. Do it when the task is finished if the user asked for a one-off run.

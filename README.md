@@ -4,7 +4,7 @@ AI tooling for [FitekIN](https://fitekin.com), Fitek's invoice-processing and AP
 
 | Path | What it is |
 |---|---|
-| [`skills/fitekin-api/`](skills/fitekin-api/) | An [Agent Skill](https://agentskills.io) that teaches an AI agent (Claude Code, Codex, Cursor, or any skill-aware agent) to work with FitekIN directly through its HTTP APIs: log in, choose a company, search and read invoices, purchase orders, suppliers, dimensions, AutoTransactions, and run imports/exports, with no UI involved. |
+| [`skills/fitekin-api/`](skills/fitekin-api/) | An [Agent Skill](https://agentskills.io) that teaches an AI agent (Claude Code, Codex, Cursor, or any skill-aware agent) to work with FitekIN directly through its HTTP APIs: log in, choose a company, search and read invoices, purchase orders, suppliers, dimensions, AutoTransactions, and run imports/exports, with no UI involved. Also covers the FitekIN MCP server for ad-hoc queries and how one OAuth token serves both MCP and the Web API. |
 | [`tools/openapi-to-skill/`](tools/openapi-to-skill/) | Scripts that regenerate the skill's endpoint and model reference from the live OpenAPI documents. |
 
 ## Install the skill
