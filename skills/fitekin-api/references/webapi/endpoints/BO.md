@@ -1,0 +1,19 @@
+# FitekIN Web API: BO
+
+Base path: `{BASE_URL}/webapi`. Header `Authorization-Token: <session token>` (see ../auth.md).
+
+1 endpoint(s). Models are described under `../models/`; enum values under `../enums.md`.
+
+## GET /api/BO/GetCompaniesForUser
+
+**Parameters**
+
+_No parameters._
+
+**Request body**
+
+_None._
+
+**Response (200)**
+
+[BackOfficeCompanyDTO[]](../models/BackOfficeCompanyDTO.md)

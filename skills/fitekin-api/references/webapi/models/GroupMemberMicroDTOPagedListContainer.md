@@ -1,0 +1,13 @@
+# GroupMemberMicroDTOPagedListContainer
+
+| Property | Type | Nullable | Notes |
+|---|---|---|---|
+| `Items` | [GroupMemberMicroDTO](GroupMemberMicroDTO.md)[] | yes |  |
+| `Skip` | int32 | no |  |
+| `Take` | int32 | no |  |
+| `TotalCount` | int32 | no |  |
+| `HasCount` | boolean | no |  |
+
+Used by:
+
+- POST /api/GroupMember/GetGroupMembersMicro (response) — [GroupMember](../endpoints/GroupMember.md)

@@ -1,0 +1,2550 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "SalesInvoice Api",
+    "version": "v3"
+  },
+  "servers": [
+    {
+      "url": "/DataExchangeWebApiCore"
+    }
+  ],
+  "paths": {
+    "/SalesInvoice/AddSalesInvoiceFile.v3": {
+      "post": {
+        "tags": [
+          "SalesInvoice"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.FileImportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFilePayload]"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.FileImportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFilePayload]"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.FileImportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFilePayload]"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.FileImportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFilePayload]"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataExchangeModel.AddSalesInvoiceFileResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataExchangeModel.AddSalesInvoiceFileResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataExchangeModel.AddSalesInvoiceFileResponse"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataExchangeModel.AddSalesInvoiceFileResponse"
+                }
+              },
+              "text/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataExchangeModel.AddSalesInvoiceFileResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/SalesInvoice/ExportSalesInvoice.v3": {
+      "post": {
+        "tags": [
+          "SalesInvoice"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceXmlExportPayload]"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceXmlExportPayload]"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceXmlExportPayload]"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/xml": { },
+              "application/json": { }
+            }
+          }
+        }
+      }
+    },
+    "/SalesInvoice/ExportSalesInvoiceAttachmentsMetadata.v3": {
+      "post": {
+        "tags": [
+          "SalesInvoice"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceAttachmentsMetadataPayload]"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceAttachmentsMetadataPayload]"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceAttachmentsMetadataPayload]"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DataExchangeModel.SalesInvoiceAttachmentMetadataItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/SalesInvoice/ExportSalesInvoiceFile.v3": {
+      "post": {
+        "tags": [
+          "SalesInvoice"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFileExportPayload]"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFileExportPayload]"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFileExportPayload]"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/SalesInvoice/ExportSalesInvoiceMetadata.v3": {
+      "post": {
+        "tags": [
+          "SalesInvoice"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceMetadataExportPayload]"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceMetadataExportPayload]"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceMetadataExportPayload]"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataExchangeModel.SalesInvoiceMetadataExportResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/SalesInvoice/ImportSalesInvoice.v3": {
+      "post": {
+        "tags": [
+          "SalesInvoice"
+        ],
+        "requestBody": {
+          "content": {
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/DataExchangeModel.Requests.SalesInvoiceImportRequest"
+              },
+              "example": "<SalesInvoiceImportRequest>\n  <RequestId>00000000-0000-0000-0000-000000000000</RequestId>\n  <IntegratorId>00000000-0000-0000-0000-000000000000</IntegratorId>\n  <Payload>\n    <Invoice>\n      <E_Invoice>\n        // SalesInvoice E_Invoice XML goes here\n        </E_Invoice>\n    </Invoice>\n  </Payload>\n</SalesInvoiceImportRequest>"
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataExchangeModel.SalesInvoiceImportResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataExchangeModel.SalesInvoiceImportResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Common.Global.Handlers.QueryParams": {
+        "type": "object",
+        "properties": {
+          "debug": {
+            "type": "boolean"
+          }
+        }
+      },
+      "DataExchangeModel.AddSalesInvoiceFileResponse": {
+        "type": "object",
+        "properties": {
+          "responseId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "DataExchangeModel.Payloads.ImportedSalesInvoice": {
+        "required": [
+          "invoice"
+        ],
+        "type": "object",
+        "properties": {
+          "invoice": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.E_Invoice"
+          }
+        }
+      },
+      "DataExchangeModel.Payloads.SalesInvoiceAttachmentsMetadataPayload": {
+        "type": "object",
+        "properties": {
+          "invoiceGlobalId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "number": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "fileUUID": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      },
+      "DataExchangeModel.Payloads.SalesInvoiceFileExportPayload": {
+        "required": [
+          "fileUUID"
+        ],
+        "type": "object",
+        "properties": {
+          "fileUUID": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "DataExchangeModel.Payloads.SalesInvoiceFilePayload": {
+        "required": [
+          "internalInvoiceGuid",
+          "fileName"
+        ],
+        "type": "object",
+        "properties": {
+          "internalInvoiceGuid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fileName": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "fileBase64": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "url": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "fileType": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/System.Nullable`1[ModelCommon.FileType]"
+              }
+            ]
+          }
+        }
+      },
+      "DataExchangeModel.Payloads.SalesInvoiceMetadataExportPayload": {
+        "type": "object",
+        "properties": {
+          "invoiceGlobalId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "number": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "DataExchangeModel.Payloads.SalesInvoicePayload": {
+        "required": [
+          "invoice"
+        ],
+        "type": "object",
+        "properties": {
+          "invoice": {
+            "$ref": "#/components/schemas/DataExchangeModel.Payloads.ImportedSalesInvoice"
+          }
+        }
+      },
+      "DataExchangeModel.Payloads.SalesInvoiceXmlExportPayload": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": [
+                "integer",
+                "string"
+              ],
+              "format": "int32"
+            }
+          },
+          "invoiceGuid": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "number": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/ModelCommon.SalesInvoiceStatus"
+            }
+          },
+          "createdDateGreaterThanEqual": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "createdDateLessThanEqual": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "invoiceDateGreaterThanEqual": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "invoiceDateLessThanEqual": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "salesInvoiceHistoryActionId": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/ModelCommon.SalesInvoiceHistoryAction"
+            }
+          },
+          "salesInvoiceHistoryLogDateGreaterThanEqual": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "salesInvoiceHistoryLogDateLessThanEqual": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "deliveredToKsef": {
+            "type": [
+              "null",
+              "boolean"
+            ]
+          }
+        }
+      },
+      "DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceAttachmentsMetadataPayload]": {
+        "required": [
+          "payload",
+          "requestId",
+          "authorizationToken",
+          "integratorId"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/DataExchangeModel.Payloads.SalesInvoiceAttachmentsMetadataPayload"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "queryParams": {
+            "$ref": "#/components/schemas/Common.Global.Handlers.QueryParams"
+          },
+          "extensions": {
+            "type": [
+              "null",
+              "array"
+            ]
+          },
+          "authorizationToken": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "integratorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "callerIpAddress": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFileExportPayload]": {
+        "required": [
+          "payload",
+          "requestId",
+          "authorizationToken",
+          "integratorId"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/DataExchangeModel.Payloads.SalesInvoiceFileExportPayload"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "queryParams": {
+            "$ref": "#/components/schemas/Common.Global.Handlers.QueryParams"
+          },
+          "extensions": {
+            "type": [
+              "null",
+              "array"
+            ]
+          },
+          "authorizationToken": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "integratorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "callerIpAddress": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceMetadataExportPayload]": {
+        "required": [
+          "payload",
+          "requestId",
+          "authorizationToken",
+          "integratorId"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/DataExchangeModel.Payloads.SalesInvoiceMetadataExportPayload"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "queryParams": {
+            "$ref": "#/components/schemas/Common.Global.Handlers.QueryParams"
+          },
+          "extensions": {
+            "type": [
+              "null",
+              "array"
+            ]
+          },
+          "authorizationToken": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "integratorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "callerIpAddress": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceXmlExportPayload]": {
+        "required": [
+          "payload",
+          "requestId",
+          "authorizationToken",
+          "integratorId"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/DataExchangeModel.Payloads.SalesInvoiceXmlExportPayload"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "queryParams": {
+            "$ref": "#/components/schemas/Common.Global.Handlers.QueryParams"
+          },
+          "extensions": {
+            "type": [
+              "null",
+              "array"
+            ]
+          },
+          "authorizationToken": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "integratorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "callerIpAddress": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "DataExchangeModel.Requests.FileImportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFilePayload]": {
+        "required": [
+          "payload",
+          "requestId",
+          "authorizationToken",
+          "integratorId"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/DataExchangeModel.Payloads.SalesInvoiceFilePayload"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "queryParams": {
+            "$ref": "#/components/schemas/Common.Global.Handlers.QueryParams"
+          },
+          "extensions": {
+            "type": [
+              "null",
+              "array"
+            ]
+          },
+          "authorizationToken": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "integratorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "callerIpAddress": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "DataExchangeModel.Requests.SalesInvoiceImportRequest": {
+        "required": [
+          "payload",
+          "requestId",
+          "authorizationToken",
+          "integratorId"
+        ],
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/DataExchangeModel.Payloads.SalesInvoicePayload"
+          },
+          "deliveryId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "originalXml": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "queryParams": {
+            "$ref": "#/components/schemas/Common.Global.Handlers.QueryParams"
+          },
+          "extensions": {
+            "type": [
+              "null",
+              "array"
+            ]
+          },
+          "authorizationToken": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "integratorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "callerIpAddress": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "DataExchangeModel.Requests.SalesInvoiceStatusUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "integratorId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "deliveryId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "referenceNr": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "deliveryChannel": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "deliveryStatus": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "channelStatus": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "errorMessage": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "errorDetail": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "externalId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "DataExchangeModel.SalesInvoiceAttachmentMetadataItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "name": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "mimeType": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "DataExchangeModel.SalesInvoiceImportResponse": {
+        "required": [
+          "authorizationToken",
+          "integratorId"
+        ],
+        "type": "object",
+        "properties": {
+          "internalId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "isBypassModuleActive": {
+            "type": "boolean"
+          },
+          "responseId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "generalErrorCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "generalMessage": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "errorMessages": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "authorizationToken": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "integratorId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "callerIpAddress": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "DataExchangeModel.SalesInvoiceMetadataExportResponse": {
+        "type": "object",
+        "properties": {
+          "invoiceGlobalId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "supplierParty": {
+            "$ref": "#/components/schemas/DataExchangeModel.SalesInvoicePartyMetadataItem"
+          },
+          "customerParty": {
+            "$ref": "#/components/schemas/DataExchangeModel.SalesInvoicePartyMetadataItem"
+          },
+          "invoiceNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "invoiceDate": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "netAmount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "vatAmount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "totAmount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "files": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/DataExchangeModel.SalesInvoiceAttachmentMetadataItem"
+            }
+          }
+        }
+      },
+      "DataExchangeModel.SalesInvoicePartyMetadataItem": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "address": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "postalcode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "country": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "regNr": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "vatNr": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.AccountDataRecord": {
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "iban": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "bic": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "bankName": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.AccountingRecord": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "journalEntry": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AccountingRecordJournalEntry"
+            }
+          },
+          "partnerCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "businessCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "sourceCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "cashFlowCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "classificatorCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.AccountingRecordJournalEntry": {
+        "type": "object",
+        "properties": {
+          "generalLedger": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "generalLedgerDetail": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "costObjective": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "sum": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "sumSpecified": {
+            "type": "boolean"
+          },
+          "vatSum": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "vatSumSpecified": {
+            "type": "boolean"
+          },
+          "vatRate": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "vatRateSpecified": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.AdditionRecord": {
+        "type": "object",
+        "properties": {
+          "addContent": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "addRate": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "addRateSpecified": {
+            "type": "boolean"
+          },
+          "addSum": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "addSumSpecified": {
+            "type": "boolean"
+          },
+          "addCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.AddressRecord": {
+        "type": "object",
+        "properties": {
+          "postalAddress1": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "postalAddress2": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "city": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "postalCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "country": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "extension": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ExtensionRecord"
+            }
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.AttachmentRecord": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "fileBase64": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "byte"
+          },
+          "fileSize": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.BillPartyRecord": {
+        "type": "object",
+        "properties": {
+          "gln": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "uniqueCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "name": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "depId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "regNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "vatRegNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "contactData": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ContactDataRecord"
+          },
+          "accountInfo": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AccountDataRecord"
+            }
+          },
+          "extension": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ExtensionRecord"
+            }
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.ContactDataRecord": {
+        "type": "object",
+        "properties": {
+          "contactName": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "contactPersonCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "phoneNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "faxNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "url": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "emailAddress": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "legalAddress": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AddressRecord"
+          },
+          "mailAddress": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AddressRecord"
+          },
+          "contactInformation": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ExtensionRecord"
+            }
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.E_Invoice": {
+        "type": "object",
+        "properties": {
+          "header": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.Header"
+          },
+          "invoice": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.Invoice"
+            }
+          },
+          "footer": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.Footer"
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.ExtensionRecord": {
+        "type": "object",
+        "properties": {
+          "informationName": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "informationContent": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "customContent": {
+            "type": [
+              "null",
+              "array"
+            ]
+          },
+          "extensionId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.Footer": {
+        "type": "object",
+        "properties": {
+          "totalNumberInvoices": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "totalAmount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.GroupEntry": {
+        "type": "object",
+        "properties": {
+          "groupDescription": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "extension": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ExtensionRecord"
+            }
+          },
+          "accounting": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AccountingRecord"
+          },
+          "groupAmount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "groupAmountSpecified": {
+            "type": "boolean"
+          },
+          "groupSum": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "groupSumSpecified": {
+            "type": "boolean"
+          },
+          "addition": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AdditionRecord"
+            }
+          },
+          "vat": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.VATRecord"
+          },
+          "groupTotal": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "groupTotalSpecified": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.Header": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fileId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "appId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "version": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "senderId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "receiverId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "contractId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "payeeAccountNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.Invoice": {
+        "type": "object",
+        "properties": {
+          "invoiceParties": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.InvoiceParties"
+          },
+          "invoiceInformation": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.InvoiceInformation"
+          },
+          "invoiceSumGroup": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.InvoiceSumGroup"
+            }
+          },
+          "invoiceItem": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.InvoiceItem"
+          },
+          "additionalInformation": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ExtensionRecord"
+            }
+          },
+          "attachmentFile": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AttachmentRecord"
+          },
+          "paymentInfo": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.PaymentInfo"
+          },
+          "invoiceId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "invoiceGuid": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "serviceId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "regNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "channelId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "channelAddress": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "factoring": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "templateId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "languageId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "presentment": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "invoiceGlobUniqId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "sellerContractId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "sellerRegnumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.InvoiceInformation": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.InvoiceInformationType"
+          },
+          "factorContractNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "contractNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "documentName": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "invoiceNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "invoiceContentCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "invoiceContentText": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "paymentReferenceNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "paymentMethod": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "invoiceDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "dueDateSpecified": {
+            "type": "boolean"
+          },
+          "paymentTerm": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "fineRatePerDay": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "fineRatePerDaySpecified": {
+            "type": "boolean"
+          },
+          "period": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.InvoiceInformationPeriod"
+          },
+          "invoiceDeliverer": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ContactDataRecord"
+          },
+          "extension": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ExtensionRecord"
+            }
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.InvoiceInformationPeriod": {
+        "type": "object",
+        "properties": {
+          "periodName": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "startDateSpecified": {
+            "type": "boolean"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDateSpecified": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.InvoiceInformationType": {
+        "type": "object",
+        "properties": {
+          "sourceInvoice": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "type": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.InvoiceItem": {
+        "type": "object",
+        "properties": {
+          "invoiceTotalGroup": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.InvoiceTotalGroup"
+          },
+          "invoiceItemGroup": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.InvoiceItemGroup"
+            }
+          },
+          "invoiceItemTotalGroup": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.InvoiceItemTotalGroup"
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.InvoiceItemGroup": {
+        "type": "object",
+        "properties": {
+          "itemEntry": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ItemEntry"
+            }
+          },
+          "groupEntry": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.GroupEntry"
+          },
+          "groupId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.InvoiceItemTotalGroup": {
+        "type": "object",
+        "properties": {
+          "invoiceItemTotalDescription": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "extension": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ExtensionRecord"
+            }
+          },
+          "accounting": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AccountingRecord"
+          },
+          "invoiceItemTotalAmount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "invoiceItemTotalAmountSpecified": {
+            "type": "boolean"
+          },
+          "invoiceItemTotalSum": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "invoiceItemTotalSumSpecified": {
+            "type": "boolean"
+          },
+          "addition": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AdditionRecord"
+            }
+          },
+          "vat": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.VATRecord"
+          },
+          "invoiceItemTotal": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "invoiceItemTotalSpecified": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.InvoiceParties": {
+        "type": "object",
+        "properties": {
+          "sellerParty": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.SellerPartyRecord"
+          },
+          "buyerParty": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.BillPartyRecord"
+          },
+          "recipientParty": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.BillPartyRecord"
+          },
+          "deliveryParty": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.BillPartyRecord"
+          },
+          "payerParty": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.BillPartyRecord"
+          },
+          "factorParty": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.BillPartyRecord"
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.InvoiceSumGroup": {
+        "type": "object",
+        "properties": {
+          "balance": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.InvoiceSumGroupBalance"
+          },
+          "invoiceSum": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "invoiceSumSpecified": {
+            "type": "boolean"
+          },
+          "penaltySum": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "penaltySumSpecified": {
+            "type": "boolean"
+          },
+          "addition": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AdditionRecord"
+            }
+          },
+          "rounding": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "roundingSpecified": {
+            "type": "boolean"
+          },
+          "vat": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.VATRecord"
+            }
+          },
+          "totalVATSum": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "totalVATSumSpecified": {
+            "type": "boolean"
+          },
+          "totalSum": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "totalToPay": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "totalToPaySpecified": {
+            "type": "boolean"
+          },
+          "currency": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "accounting": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AccountingRecord"
+          },
+          "extension": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ExtensionRecord"
+            }
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.InvoiceSumGroupBalance": {
+        "type": "object",
+        "properties": {
+          "balanceDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "balanceDateSpecified": {
+            "type": "boolean"
+          },
+          "balanceBegin": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "balanceBeginSpecified": {
+            "type": "boolean"
+          },
+          "inbound": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+              "type": [
+                "number",
+                "string"
+              ],
+              "format": "double"
+            }
+          },
+          "outbound": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+              "type": [
+                "number",
+                "string"
+              ],
+              "format": "double"
+            }
+          },
+          "balanceEnd": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "balanceEndSpecified": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.InvoiceTotalGroup": {
+        "type": "object",
+        "properties": {
+          "itemEntry": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ItemEntry"
+            }
+          },
+          "groupEntry": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.GroupEntry"
+          },
+          "groupId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.ItemEntry": {
+        "type": "object",
+        "properties": {
+          "rowNo": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "serialNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "sellerProductId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "buyerProductId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "taricCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "accounting": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AccountingRecord"
+          },
+          "customerRef": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "description": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "ean": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "initialReading": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "finalReading": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "itemReserve": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ExtensionRecord"
+            }
+          },
+          "itemDetailInfo": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ItemEntryItemDetailInfo"
+            }
+          },
+          "itemSum": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "itemSumSpecified": {
+            "type": "boolean"
+          },
+          "addition": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AdditionRecord"
+            }
+          },
+          "vat": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.VATRecord"
+          },
+          "itemTotal": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "itemTotalSpecified": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.ItemEntryItemDetailInfo": {
+        "type": "object",
+        "properties": {
+          "itemUnit": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "itemAmount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "itemAmountSpecified": {
+            "type": "boolean"
+          },
+          "itemPrice": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "itemPriceSpecified": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.ItemsChoiceType": {
+        "type": "integer"
+      },
+      "EInvoice.einvoiceStandard.PaymentInfo": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "items": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "itemsElementName": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ItemsChoiceType"
+            }
+          },
+          "payable": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "payDueDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "payDueDateSpecified": {
+            "type": "boolean"
+          },
+          "paymentTotalSum": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "payerName": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "paymentId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "payToAccount": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "payToName": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "payToBIC": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "directDebitPayeeContractNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "directDebitPayerNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.SellerPartyRecord": {
+        "type": "object",
+        "properties": {
+          "gln": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "transactionPartnerCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "uniqueCode": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "name": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "depId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "regNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "vatRegNumber": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "contactData": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ContactDataRecord"
+          },
+          "accountInfo": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.AccountDataRecord"
+            }
+          },
+          "extension": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ExtensionRecord"
+            }
+          }
+        }
+      },
+      "EInvoice.einvoiceStandard.VATRecord": {
+        "type": "object",
+        "properties": {
+          "sumBeforeVAT": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "sumBeforeVATSpecified": {
+            "type": "boolean"
+          },
+          "vatRate": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "vatSum": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "vatSumFieldSpecified": {
+            "type": "boolean"
+          },
+          "currency": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "sumAfterVAT": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": [
+              "null",
+              "number",
+              "string"
+            ],
+            "format": "double"
+          },
+          "sumAfterVATSpecified": {
+            "type": "boolean"
+          },
+          "reference": {
+            "$ref": "#/components/schemas/EInvoice.einvoiceStandard.ExtensionRecord"
+          },
+          "vatId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "ModelCommon.SalesInvoiceHistoryAction": {
+        "type": "integer"
+      },
+      "ModelCommon.SalesInvoiceStatus": {
+        "type": "integer"
+      },
+      "System.Nullable`1[ModelCommon.FileType]": {
+        "type": "integer"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "SalesInvoice"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+# DimensionHistory
+
+| Property | Type | Nullable | Notes |
+|---|---|---|---|
+| `Id` | int32 | no |  |
+| `UniqId` | uuid | yes |  |
+| `IsNew` | boolean | no | read-only |
+| `Code` | string | yes |  |
+| `Description` | string | yes |  |
+
+Used by:
+
+- [CustomCostObjectiveHistory](CustomCostObjectiveHistory.md).Items

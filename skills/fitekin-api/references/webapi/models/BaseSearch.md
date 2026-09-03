@@ -1,0 +1,67 @@
+# BaseSearch
+
+| Property | Type | Nullable | Notes |
+|---|---|---|---|
+| `SortItems` | [SortItem](SortItem.md)[] | yes |  |
+| `PagingOptions` | [PagingOptions](PagingOptions.md) | no |  |
+| `Restrictions` | [RestrictionItem](RestrictionItem.md)[] | yes |  |
+
+Used by:
+
+- POST /api/Account/GetAccounts (request) — [Account](../endpoints/Account.md)
+- POST /api/AutoTransactions/ExportAutoTransactions (request) — [AutoTransactions](../endpoints/AutoTransactions.md)
+- POST /api/AutoTransactions/GetList (request) — [AutoTransactions](../endpoints/AutoTransactions.md)
+- POST /api/AutoTransactions/GetListMin (request) — [AutoTransactions](../endpoints/AutoTransactions.md)
+- POST /api/BO/GetUserCompanies (request) — [MobileApp](../endpoints/MobileApp.md)
+- POST /api/Company/GetCompanyUsers (request) — [Company](../endpoints/Company.md)
+- POST /api/Company/GetInvoiceCustomFieldItemsPaged (request) — [Company](../endpoints/Company.md)
+- POST /api/Company/GetInvoiceCustomFieldsWithoutItems (request) — [Company](../endpoints/Company.md)
+- POST /api/CustomCostObjective/GetCustomCostObjectiveDimensions/{id} (request) — [CustomCostObjective](../endpoints/CustomCostObjective.md)
+- POST /api/CustomCostObjective/GetDimensions (request) — [CustomCostObjective](../endpoints/CustomCostObjective.md)
+- POST /api/GroupMember/GetGroupMembers (request) — [GroupMember](../endpoints/GroupMember.md)
+- POST /api/GroupMember/GetGroupMembersMicro (request) — [GroupMember](../endpoints/GroupMember.md)
+- POST /api/Invoice/ExportInvoicesApproversToXls (request) — [Invoice](../endpoints/Invoice.md)
+- POST /api/Invoice/ExportInvoicesToCSV (request) — [Invoice](../endpoints/Invoice.md)
+- POST /api/Invoice/ExportInvoicesToXls (request) — [Invoice](../endpoints/Invoice.md)
+- POST /api/Invoice/GetInvoiceCustomFieldsHistory (request) — [Invoice](../endpoints/Invoice.md)
+- POST /api/Invoice/GetInvoiceHeaderHistory (request) — [Invoice](../endpoints/Invoice.md)
+- POST /api/Invoice/GetInvoiceTransactionRowsByInvoiceId/{invoiceId} (request) — [Invoice](../endpoints/Invoice.md)
+- POST /api/Invoice/GetPurchaseOrdersLinkingHistory (request) — [Invoice](../endpoints/Invoice.md)
+- POST /api/InvoiceRow/GetInvoiceRowsByInvoiceId/{invoiceId} (request) — [InvoiceRow](../endpoints/InvoiceRow.md)
+- POST /api/InvoiceType/GetList (request) — [InvoiceType](../endpoints/InvoiceType.md)
+- POST /api/PaymentMethod/GetList (request) — [PaymentMethod](../endpoints/PaymentMethod.md)
+- POST /api/ProductItem/DeleteItem (request) — [ProductItem](../endpoints/ProductItem.md)
+- POST /api/ProductItem/ExportProductItemsToXls (request) — [ProductItem](../endpoints/ProductItem.md)
+- POST /api/ProductItem/GetList (request) — [ProductItem](../endpoints/ProductItem.md)
+- POST /api/PurchaseOrders/ExportPurchaseOrdersApproversToXls (request) — [PurchaseOrders](../endpoints/PurchaseOrders.md)
+- POST /api/PurchaseOrders/ExportPurchaseOrdersToXls (request) — [PurchaseOrders](../endpoints/PurchaseOrders.md)
+- POST /api/PurchaseOrders/ExportPurchaseOrdersWithCostObjectivesToXls (request) — [PurchaseOrders](../endpoints/PurchaseOrders.md)
+- POST /api/PurchaseOrders/GetDashboardPurchaseOrdersMin (request) — [PurchaseOrders](../endpoints/PurchaseOrders.md)
+- POST /api/PurchaseOrders/GetList (request) — [PurchaseOrders](../endpoints/PurchaseOrders.md)
+- POST /api/PurchaseOrders/GetListForDashboard (request) — [MobileApp](../endpoints/MobileApp.md)
+- POST /api/PurchaseOrders/GetPurchaseOrderHeaderHistory (request) — [PurchaseOrders](../endpoints/PurchaseOrders.md)
+- POST /api/PurchaseOrders/GetPurchaseOrderRowsPaginated/{poId} (request) — [PurchaseOrders](../endpoints/PurchaseOrders.md)
+- POST /api/PurchaseOrders/GetPurchaseOrdersMin (request) — [PurchaseOrders](../endpoints/PurchaseOrders.md)
+- POST /api/Receiver/GetList (request) — [Receiver](../endpoints/Receiver.md)
+- POST /api/RelatedDimensions/GetList (request) — [RelatedDimensions](../endpoints/RelatedDimensions.md)
+- POST /api/Roles/GetAllRoles (request) — [Roles](../endpoints/Roles.md)
+- POST /api/SalesInvoice/ExportSalesInvoicesToXls (request) — [SalesInvoice](../endpoints/SalesInvoice.md)
+- POST /api/SalesInvoice/GetList (request) — [SalesInvoice](../endpoints/SalesInvoice.md)
+- POST /api/SalesInvoiceRow/GetByInvoiceId (request) — [SalesInvoiceRow](../endpoints/SalesInvoiceRow.md)
+- POST /api/SalesInvoiceRow/GetLocalFieldsUnitsList (request) — [SalesInvoiceRow](../endpoints/SalesInvoiceRow.md)
+- POST /api/SalesInvoiceRow/GetLocalFieldsVatList (request) — [SalesInvoiceRow](../endpoints/SalesInvoiceRow.md)
+- POST /api/Supplier/ExportSuppliersToCSV (request) — [Supplier](../endpoints/Supplier.md)
+- POST /api/Supplier/ExportSuppliersToXls (request) — [Supplier](../endpoints/Supplier.md)
+- POST /api/Supplier/GetSuppliers (request) — [Supplier](../endpoints/Supplier.md)
+- POST /api/TransactionRow/GetTransactionRowsHistoryList (request) — [TransactionRow](../endpoints/TransactionRow.md)
+- POST /api/User/ExportUsersToCSV (request) — [User](../endpoints/User.md)
+- POST /api/User/ExportUsersToXls (request) — [User](../endpoints/User.md)
+- POST /api/User/GetCostObjectiveItemsCountForUser (request) — [User](../endpoints/User.md)
+- POST /api/User/GetCostObjectiveItemsForUser (request) — [User](../endpoints/User.md)
+- POST /api/User/GetUsers (request) — [User](../endpoints/User.md)
+- POST /api/User/GetUsersFromBo (request) — [User](../endpoints/User.md)
+- POST /api/VatCode/GetVatCodeItems (request) — [VatCode](../endpoints/VatCode.md)
+- POST /api/WorkflowTemplate/GetCompanyTemplates (request) — [WorkflowTemplate](../endpoints/WorkflowTemplate.md)
+- POST /api/WorkflowTemplate/GetCompanyTemplatesMin (request) — [WorkflowTemplate](../endpoints/WorkflowTemplate.md)
+- [InvoiceLinkedPurchaseOrdersRequestDto](InvoiceLinkedPurchaseOrdersRequestDto.md).searchParams
+- [PurchaseOrderLinkedInvoicesRequestDto](PurchaseOrderLinkedInvoicesRequestDto.md).searchParams
