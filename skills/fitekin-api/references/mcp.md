@@ -21,10 +21,22 @@ https://<host>/AIAgent/mcp        streamable HTTP transport, stateless
 Discovery documents (RFC 9728 / RFC 8414 / OIDC) hang off the same host:
 
 ```
-https://<host>/AIAgent/.well-known/oauth-protected-resource/mcp
-https://<host>/AzureLogin/.well-known/openid-configuration
-https://<host>/AIAgent/.well-known/mcp/server-cards.json
+https://<host>/AIAgent/.well-known/oauth-protected-resource/mcp     protected resource (RFC 9728)
+https://<host>/AzureLogin/.well-known/oauth-authorization-server    AS metadata (RFC 8414)
+https://<host>/AzureLogin/.well-known/openid-configuration          AS metadata (OIDC flavour, same body)
+https://<host>/AzureLogin/.well-known/jwks.json                     JWKS (advertised, but empty)
+https://<host>/AIAgent/.well-known/mcp/server-cards.json            server card
 ```
+
+**Both authorization-server documents are served with the issuer path in front of the well-known
+segment.** RFC 8414 §3.1 specifies the opposite layout for an issuer with a path — the metadata for
+issuer `https://<host>/AzureLogin` "should" live at `https://<host>/.well-known/oauth-authorization-server/AzureLogin`.
+Only the path-appended pair is reachable from outside: the inverted URL sits at the host root, which
+the ingress routes to the web UI, so it answers `404` with an HTML error page rather than JSON
+(observed on dev, 2026-09-04). A hand-written client that follows RFC 8414
+literally will fail discovery — request the inverted URL if you like, but fall back to
+`{issuer}/.well-known/oauth-authorization-server`. Clients that only try the OIDC-appended URL
+(Claude Code among them) are unaffected.
 
 Availability: live on Fitek's dev and test hosts; roll-out to production is tracked by Fitek. If the protected-resource document returns `404` on a host, the MCP server is not enabled there yet and you must use the Web API.
 
@@ -37,6 +49,50 @@ claude mcp add --transport http fitekin https://<host>/AIAgent/mcp
 The first call gets `401` with a `WWW-Authenticate: Bearer resource_metadata=…` challenge. A generic MCP client then does the whole OAuth 2.1 dance by itself: reads the protected-resource document, discovers the authorization server (`/AzureLogin`), registers dynamically (RFC 7591, public client, no secret), opens `/authorize` in the browser, and redeems the code at `/token` with PKCE `S256`. Nothing is pre-configured per environment.
 
 Sign-in at `/authorize` is currently the Microsoft EntraID leg (Fitek staff and customers federated through EntraID). Sign-in with a plain FitekIN username/password at `/authorize` is planned; until then, users without an EntraID identity use the Web API with the Login API flow in `auth.md`.
+
+### When your runtime has no built-in MCP OAuth client
+
+The authorization server is a plain OAuth 2.1 public client endpoint, so any client can drive it by
+hand — useful for scripts, or for an agent that wants the JWT for the Web API and never speaks MCP.
+The whole chain needs nothing pre-configured but the `/mcp` URL:
+
+1. `GET /AIAgent/.well-known/oauth-protected-resource/mcp` → `authorization_servers[0]`.
+2. `GET {issuer}/.well-known/oauth-authorization-server` → `authorization_endpoint`, `token_endpoint`, `registration_endpoint`.
+3. Register once (RFC 7591, no secret issued):
+
+   ```json
+   POST {registration_endpoint}
+   { "client_name": "my-agent", "redirect_uris": ["http://localhost:47821/callback"],
+     "grant_types": ["authorization_code"], "response_types": ["code"],
+     "token_endpoint_auth_method": "none" }
+   ```
+
+   A loopback `http://localhost:<port>/...` redirect URI is accepted; listen on that port for the code.
+4. `GET {authorization_endpoint}?response_type=code&client_id=…&redirect_uri=…&state=…&code_challenge=…&code_challenge_method=S256`
+   in a browser. `S256` is the only challenge method offered.
+5. `POST {token_endpoint}` form-encoded with `grant_type=authorization_code`, `code`, `redirect_uri`,
+   `client_id`, `code_verifier`. No client authentication (`token_endpoint_auth_methods_supported: ["none"]`).
+
+Three things that bite:
+
+- **Finish the sign-in in one browser.** The OIDC correlation cookie is set on the `/authorize`
+  redirect. Copying the `login.microsoftonline.com` URL into a different browser (or a fresh
+  profile) lands cookie-less at `/AzureLogin/signin-oidc`, which fails with a bare `500` *and*
+  clears cookies, so the retry looks equally broken. Drive the flow from the first redirect to the
+  callback in the same browser session.
+- **There is no refresh token.** `grant_types_supported` is `["authorization_code"]` only. When the
+  session expires, run the flow again (or extend it while it is alive with
+  `POST /webapi/api/Session/ExtendSession`, and keep the refreshed `Authorization-Token` header the
+  Web API returns — see `auth.md`).
+- **Do not look for `expires_in` or an `exp` claim.** The dev token response carried neither
+  (observed 2026-09-04). The JWT is a FitekIN session token, and its lifetime lives in the
+  FitekIN-specific claims `ExpirationDate` (ISO-8601 UTC) and `SessionLengthMinutes` (120 on dev).
+  Read `ExpirationDate` if you need to know when to re-authenticate; treat a `401` as the real signal.
+
+An authorization code is single-use: replaying it returns `400 invalid_grant`.
+
+Do not try to validate the access token yourself: `jwks_uri` is advertised but returns an empty
+key set (`{"keys":[]}`) — FitekIN validates its own session JWT server-side. Treat the token as opaque.
 
 ## One token for both MCP and the Web API
 

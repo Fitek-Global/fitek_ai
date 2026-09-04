@@ -90,6 +90,16 @@ If the agent runtime speaks MCP (see `mcp.md`), the browser sign-in that `claude
 
 One login, one token, both channels. Today the `/authorize` sign-in is the Microsoft EntraID leg; FitekIN username/password sign-in at `/authorize` is planned. Users without an EntraID identity take step 1.
 
+Two differences from step 1 worth knowing before you rely on this path:
+
+- The OAuth token response carries **no `refresh_token`** (the server advertises only the
+  `authorization_code` grant) and, as observed on dev, **no `expires_in`**. The JWT has no standard
+  `exp` claim either — its lifetime is in the FitekIN claims `ExpirationDate` (ISO-8601 UTC) and
+  `SessionLengthMinutes`. Keep the session alive the normal way (sliding `Authorization-Token`
+  response headers, `Session/ExtendSession`); when it finally expires, run the browser flow again.
+- A runtime without a built-in MCP OAuth client can still drive the flow by hand — registration,
+  PKCE and the loopback redirect are described in `mcp.md`.
+
 ## 4. Log out
 
 `POST {BASE_URL}/webapi/api/Login/Logout` ends the session. Do it when the task is finished if the user asked for a one-off run.
