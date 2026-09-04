@@ -112,7 +112,7 @@ All tools take an optional `authToken` (a FitekIN JWT or the per-session handle 
 | `list_companies` | Companies the user may act in; `isCurrent` marks the active tenant. | Call first in a multi-company account. |
 | `switch_company` | Change the active tenant for this session. | Accepts only companies from `list_companies`. |
 | `describe_schema` | Entities, allow-listed fields, operators, `includes` relations for `query_data`. | Pass `entity` to keep the response small. Do not guess names. |
-| `query_data` | Read-only structured query. | See DSL below. Result rows are capped. |
+| `query_data` | Read-only structured query. | See DSL below. Hard limit of 50 rows and **paging does not work** — never page or total with it. |
 | `search_invoices` | Natural-language-friendly invoice finder: `text` over line items and description, `supplierName`, `foreignSuppliersOnly`, `dateFrom`/`dateTo` or `period` (`thisMonth`, `lastMonth`, `thisYear`, `lastYear`), `skip`/`take` (max 200). | Prefer over `query_data` for "find invoices where…". At least one filter required. |
 | `aggregate_invoices` | Sum or count invoices with the same filters as `search_invoices`. | Use for totals; do not page and add up client-side. |
 | `get_autotransaction` | One AutoTransaction rule as the JSON `update_autotransaction` expects. | Read before any change. |
@@ -126,9 +126,9 @@ All tools take an optional `authToken` (a FitekIN JWT or the per-session handle 
   "filters": [
     { "field": "Status", "op": "in", "values": [0, 2] },
     { "field": "InvoiceDate", "op": "gte", "value": "2026-09-01" },
-    { "field": "SupplierName", "op": "like", "value": "acme" }
+    { "field": "SupplierId", "op": "eq", "value": 1234 }
   ],
-  "fields": ["Id", "Number", "InvoiceDate", "SupplierName", "TotalAmountWithVat", "Status"],
+  "fields": ["Id", "Number", "InvoiceDate", "SupplierId", "TotalAmountWithVat", "Status"],
   "orderBy": [ { "field": "InvoiceDate", "direction": "desc" } ],
   "includes": [],
   "paging": { "skip": 0, "take": 50 }
@@ -136,10 +136,37 @@ All tools take an optional `authToken` (a FitekIN JWT or the per-session handle 
 ```
 
 - Filters are ANDed. Operators: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `like` (case-insensitive contains), `in` (with `values`).
-- Only fields on the entity's allow-list can be filtered or returned; unknown names are rejected with a message naming the valid ones. Run `describe_schema` for the entity first.
-- Entities include `Invoice`, `Supplier`, `TransactionRow`, `Account`, `VatCode`, `Task`, `AutoTransactions` and related entities; `includes` pulls related entities into the rows.
-- Enum values are numeric, as in Web API search restrictions (`references/webapi/enums.md`).
+- Only fields on the entity's allow-list can be filtered or returned; unknown names are rejected with a message naming the valid ones. **Run `describe_schema` for the entity first and use the names it returns** — the allow-list is the entity's own columns, so a related entity's label is not on it. `Invoice` has `SupplierId`, not a supplier name; match a supplier by name with `search_invoices`' `supplierName` argument, or query `Supplier` and filter by the id.
+- Enum values are numeric in filters, as in Web API search restrictions (`references/webapi/enums.md`); returned rows carry the enum **name** instead (`"Status": "InApproval"`), so do not compare a result field against the number you filtered on.
+- `ne` does not exclude NULLs: `{"field":"PurchaseOrder","op":"ne","value":""}` returns rows whose `PurchaseOrder` is `null`, and `like` with an empty value is rejected. There is no "is set" / "is null" operator — filter on something else and drop the empty ones yourself.
 - Reads are audited server-side per user and company.
+
+**Entities** (19, from `describe_schema` on dev): `Invoice`, `Supplier`, `TransactionRow`, `Account`, `VatCode`, `Task`,
+`GroupMember`, `InvoiceCustomization`, `InvoiceCustomField`, `InvoiceCustomFieldItem`, `TransactionRowsDimension`,
+`Dimension`, `CustomCostObjective`, `WorkflowTemplate`, `AutoTransactions`, `AutoTransactionsTriggers`,
+`AutoTransactionsRows`, `AutoTransactionsRowsDimensions`, `AutoTransactionsCustomFields`. `includes` pulls related
+entities into the rows.
+
+**There is no purchase-order entity.** Orders are not reachable over MCP at all — use the Web API
+`PurchaseOrders` controller (`POST /api/PurchaseOrders/GetList` with a `BaseSearch` body). The `Invoice.PurchaseOrder`
+field is a free-text reference string on the invoice, not a link to an order.
+
+### `query_data` returns at most 50 rows and cannot page
+
+`paging.skip` and `paging.take` are accepted but **ignored** (observed on dev, 2026-09-04): every call returns
+the same first 50 rows of the result set regardless of what you pass, and the response reports
+`"capped": false` while doing it. On a tenant with 8,882 invoices, `query_data` sees 50 of them.
+
+Consequences you must design around:
+
+- Never total, count or "scan" anything by paging `query_data` — you will re-read the same 50 rows and
+  multiply your figures by the number of pages you requested.
+- For counts and sums use `aggregate_invoices`; for anything that needs more than 50 invoice rows use
+  `search_invoices`, whose `skip`/`take` do work (its first page also carries `totalCount`).
+- For non-invoice entities beyond the first 50 rows, use the Web API list endpoints, which page properly
+  via `PagingOptions`.
+- Treat `query_data` as a sampling and shape-inspection tool: good for "show me some rows of X", wrong for
+  "how many X are there".
 
 ## Rules for the agent
 
