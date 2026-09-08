@@ -17,9 +17,14 @@ Service prefixes under the base URL:
 | Web API | `/webapi/api` | Everything a logged-in user can do in the UI |
 | DataExchange API | `/DataExchangeWebApiCore` | Integrator import/export (separate credentials, see `data-exchange.md`) |
 
-Credentials come from the environment (`FITEKIN_USERNAME`, `FITEKIN_PASSWORD`) or from the user at run time. Never write them into files, prompts, logs or URLs.
+**Two ways to get a session token.** The preferred one is OAuth through the MCP authorization server
+(§3a): a one-time browser sign-in yields a token that works for both MCP and the Web API, and no
+password is kept anywhere. Where OAuth is not available — a host that has not enabled it yet, or a
+runtime that cannot open a browser — fall back to username/password login (§1), with
+`FITEKIN_USERNAME`/`FITEKIN_PASSWORD` from the environment or the user at run time. Whichever path you
+take, never write credentials or tokens into files, prompts, logs or URLs.
 
-## 1. Log in
+## 1. Log in (username/password — the fallback path; for OAuth see §3a)
 
 ```http
 POST {BASE_URL}/LoginApi/api/Login
@@ -88,7 +93,7 @@ If the agent runtime speaks MCP (see `mcp.md`), the browser sign-in that `claude
 - steps 2, 3 and 4 above apply to it as written (sliding refresh headers, `ChangeUserLastCompany`, logout);
 - conversely, a token from `POST /LoginApi/api/Login` is accepted by the MCP tools' `authToken` parameter and as the MCP bearer header.
 
-One login, one token, both channels. Today the `/authorize` sign-in is the Microsoft EntraID leg; FitekIN username/password sign-in at `/authorize` is planned. Users without an EntraID identity take step 1.
+One login, one token, both channels. Today the `/authorize` sign-in is the Microsoft EntraID leg; FitekIN username/password sign-in at `/authorize` is planned. Users without an EntraID identity take step 1. OAuth is enabled per host — it is live on Fitek's dev host; where the protected-resource document (`/AIAgent/.well-known/oauth-protected-resource/mcp`) returns `404`, OAuth is not enabled there yet, so use §1.
 
 Two differences from step 1 worth knowing before you rely on this path:
 
@@ -106,8 +111,8 @@ Two differences from step 1 worth knowing before you rely on this path:
 
 ## Checklist for the agent
 
-1. Read base URL and credentials from the environment; ask if missing.
-2. `POST /LoginApi/api/Login`; stop on `authStatus != ActiveUser`.
+1. Read base URL from the environment; ask if missing.
+2. Get a token: prefer OAuth (§3a) when the runtime speaks MCP — no password needed; otherwise read `FITEKIN_USERNAME`/`FITEKIN_PASSWORD`, `POST /LoginApi/api/Login`, and stop on `authStatus != ActiveUser`.
 3. If the user named a company, `ChangeUserLastCompany` and take the token from the response header.
 4. Send `Authorization-Token` on every call and keep the freshest token from response headers.
 5. On `401`: re-login once, replay the request, then report if it fails again.

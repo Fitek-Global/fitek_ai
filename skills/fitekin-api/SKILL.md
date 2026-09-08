@@ -9,8 +9,8 @@ FitekIN is multi-company invoice-processing software. Users receive purchase inv
 
 ## Before the first call
 
-1. Read `references/auth.md`. Get `FITEKIN_BASE_URL`, `FITEKIN_USERNAME`, `FITEKIN_PASSWORD` from the environment; ask the user if any is missing. Never print or store credentials or tokens.
-2. Log in with `POST {BASE_URL}/LoginApi/api/Login`. Stop if `authStatus` is not `ActiveUser`.
+1. Read `references/auth.md`. Get `FITEKIN_BASE_URL` from the environment; ask if missing.
+2. Authenticate. **Prefer OAuth** when your runtime speaks MCP: the token the MCP sign-in returns is a FitekIN session token you reuse for the Web API (see `references/mcp.md` and `references/auth.md` §3a), so no password is stored. Otherwise fall back to username/password: read `FITEKIN_USERNAME`/`FITEKIN_PASSWORD` from the environment (ask if missing) and `POST {BASE_URL}/LoginApi/api/Login`; stop if `authStatus` is not `ActiveUser`. Never print or store credentials or tokens.
 3. If the user named a company, switch to it with `POST /webapi/api/BO/ChangeUserLastCompany?companyGuid=…` and take the new token from the `Authorization-Token` response header.
 4. Send `Authorization-Token: <token>` on every Web API call and always keep the freshest token returned in response headers.
 

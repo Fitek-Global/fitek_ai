@@ -22,15 +22,36 @@ git clone https://github.com/Fitek-Global/fitek_ai.git
 ln -s "$(pwd)/fitek_ai/skills/fitekin-api" ~/.claude/skills/fitekin-api
 ```
 
-Then set the environment the agent should talk to (see [`skills/fitekin-api/references/auth.md`](skills/fitekin-api/references/auth.md)):
+Then tell the agent which host to talk to, and how to authenticate (see [`skills/fitekin-api/references/auth.md`](skills/fitekin-api/references/auth.md)):
 
 ```bash
 export FITEKIN_BASE_URL=https://fitekin.com   # or your test/dev host
+```
+
+**Preferred — OAuth, no stored password.** If your agent runtime speaks MCP (Claude Code, Claude
+Desktop, Cursor, VS Code), add the FitekIN MCP server and sign in once in the browser:
+
+```bash
+claude mcp add --transport http fitekin https://<host>/AIAgent/mcp
+```
+
+The browser sign-in (Microsoft EntraID today) returns an OAuth access token that **is** a FitekIN
+session token — the skill uses the same token for the Web API, so there is nothing else to configure.
+A runtime without built-in MCP OAuth can drive the same flow by hand (register + PKCE + a loopback
+redirect); the steps are in [`references/mcp.md`](skills/fitekin-api/references/mcp.md). No password is stored
+anywhere. OAuth is currently enabled on Fitek's dev host; roll-out to the other environments is
+tracked by Fitek.
+
+**Fallback — username/password**, for hosts where OAuth is not yet enabled, or agents that cannot do
+the browser flow:
+
+```bash
 export FITEKIN_USERNAME=...
 export FITEKIN_PASSWORD=...
 ```
 
-The agent never needs the credentials in its prompt; it reads them from the environment when it calls the API.
+Either way the agent reads what it needs from the environment; credentials never go in its prompt, and
+it never prints or stores the token.
 
 ## Regenerate the API reference
 
