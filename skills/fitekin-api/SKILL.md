@@ -49,7 +49,40 @@ Controller names map to UI areas: `Invoice` (purchase invoices, approval, confir
 
 **Questions the Web API cannot answer directly** (arbitrary filters across entities, free-text search over line items, sums and counts): use the FitekIN MCP server, `references/mcp.md`. If your runtime supports MCP, `claude mcp add --transport http fitekin https://<host>/AIAgent/mcp` and sign in once; the OAuth access token you get is a FitekIN session JWT and also works for every Web API call in this skill.
 
+## Linking a user to the web UI
+
+The API returns ids, but a person wants a clickable link. The FitekIN web app is a single-page app
+served under `/app/` with **hash routing**, so a deep link is `{BASE_URL}/app/#{route}`. Routes take
+integer ids (per company). The most useful ones (from the frontend router):
+
+| To open | Link |
+|---|---|
+| One purchase invoice | `{BASE_URL}/app/#/invoiceconfirmation/{invoiceId}` |
+| Invoice register (list) | `{BASE_URL}/app/#/invoices/` |
+| Purchase order | `{BASE_URL}/app/#/purchase-orders/details/{poId}` |
+| Purchase order list | `{BASE_URL}/app/#/purchase-orders` |
+| Sales invoice | `{BASE_URL}/app/#/sales-invoices/details/{id}` |
+| Archived invoice | `{BASE_URL}/app/#/archivedetails/{id}` |
+| AutoTransaction rule | `{BASE_URL}/app/#/auto-transactions/details/{id}` |
+
+**Cross-company links need the company guid.** An invoice id only makes sense inside its company, and a
+plain link opens in whatever company the viewer's session is currently in. To make the link land in the
+right tenant regardless, append the company guid the way the app itself does:
+
+```
+{BASE_URL}/app/#/invoiceconfirmation/{invoiceId}?CompanyGuid={companyGuid}
+```
+
+The app reads `CompanyGuid` from the query, switches the session to that company, then opens the
+invoice — this is the link the mobile app and the invoice register generate. Include it whenever you
+know the company guid (from `GET /webapi/api/Company/GetCurrentCompany` or MCP `list_companies`); it is
+harmless when the viewer is already in that company. Prefer the `CompanyGuid` casing used by the
+register links; a lowercase `companyGuid` also appears in some redirects, so if one casing does not
+resolve, try the other. Company guids are GUIDs;
+invoice/PO ids are integers — do not mix them (see Rules below).
+
 ## Rules
+
 
 - **Read before write.** Fetch the current entity, build the change from it, show the user what will change, and only then call a mutating endpoint (`Add`, `Edit`, `Save`, `Update`, `Delete`, `Confirm`, `Reject`, `Assign`, `Export`).
 - **Never bulk-mutate silently.** Any call that touches more than one invoice or more than one row requires explicit user confirmation listing the ids.
