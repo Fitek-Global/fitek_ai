@@ -1,0 +1,20 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "fitek-ai",
+  "description": "Fitek AI tooling for Claude Code and other skill-aware agents.",
+  "owner": {
+    "name": "Fitek"
+  },
+  "plugins": [
+    {
+      "name": "fitekin-api",
+      "description": "Teach an AI agent to work with FitekIN through its HTTP APIs and MCP server, no UI involved.",
+      "version": "0.1.0",
+      "source": "./",
+      "author": {
+        "name": "Fitek"
+      },
+      "homepage": "https://github.com/Fitek-Global/fitek_ai"
+    }
+  ]
+}

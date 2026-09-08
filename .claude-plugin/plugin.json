@@ -1,0 +1,18 @@
+{
+  "name": "fitekin-api",
+  "description": "Work with FitekIN (Fitek's invoice-processing / AP-automation platform) directly through its HTTP APIs: log in, choose a company, search and read invoices, purchase orders, suppliers, dimensions and AutoTransactions, run imports/exports, and use the FitekIN MCP server — one OAuth token serves both MCP and the Web API.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Fitek"
+  },
+  "homepage": "https://github.com/Fitek-Global/fitek_ai",
+  "repository": "https://github.com/Fitek-Global/fitek_ai",
+  "keywords": [
+    "fitekin",
+    "fitek",
+    "invoices",
+    "accounts-payable",
+    "api",
+    "mcp"
+  ]
+}

@@ -9,6 +9,19 @@ AI tooling for [FitekIN](https://fitekin.com), Fitek's invoice-processing and AP
 
 ## Install the skill
 
+### Option A — Claude Code plugin (one command)
+
+This repo is also a Claude Code plugin marketplace, so in Claude Code you can add it without cloning or symlinking anything:
+
+```
+/plugin marketplace add Fitek-Global/fitek_ai
+/plugin install fitekin-api@fitek-ai
+```
+
+Updates come with `/plugin marketplace update fitek-ai`. (While the repository is private you need GitHub access; once it is public this works for anyone.)
+
+### Option B — copy or symlink the folder
+
 Agent Skills are plain folders with a `SKILL.md`. Copy or symlink `skills/fitekin-api` into the place your agent reads skills from:
 
 | Agent | Location |
