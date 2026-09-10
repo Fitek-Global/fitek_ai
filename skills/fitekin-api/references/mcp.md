@@ -100,8 +100,8 @@ The `access_token` returned by `/token` **is an ordinary FitekIN session JWT**, 
 
 - Send it as `Authorization: Bearer <token>` to `/AIAgent/mcp` **and** as `Authorization-Token: <token>` (or `Authorization: Bearer`) to `/webapi/api/...`. No second login.
 - The reverse works too: a token obtained from `POST /LoginApi/api/Login` can be passed to MCP tools in their `authToken` parameter, or as the bearer header when you drive the MCP endpoint yourself.
-- Company binding, expiry and sliding refresh behave exactly as described in `auth.md`. Switching company through `switch_company` (MCP) or `BO/ChangeUserLastCompany` (Web API) changes the tenant for the token's session; after a Web API switch use the refreshed token from the response header on both channels.
-- Rights are the user's rights. MCP tools are read-only except `update_autotransaction`; the Web API enforces the same per-endpoint rights.
+- Company binding, expiry and sliding refresh behave exactly as described in `auth.md`. Switching company does **not** re-bind a token you already hold: both `switch_company` (MCP) and `BO/ChangeUserLastCompany` (Web API) mint a **new** token for the target company and hand it back (in the tool result / the `Authorization-Token` response header). The old token keeps reading the old company. You must send the returned token on every subsequent call, on both channels — otherwise reads stay on the original tenant (see `switch_company` in the tools table).
+- Rights are the user's rights. The working MCP tools are all read-only; the one write tool, `update_autotransaction`, does not function on the deployed servers (see the tools table), so every state change — AutoTransactions included — goes through the Web API, which enforces the same per-endpoint rights.
 
 ## Tools
 
@@ -110,13 +110,17 @@ All tools take an optional `authToken` (a FitekIN JWT or the per-session handle 
 | Tool | Purpose | Notes |
 |---|---|---|
 | `list_companies` | Companies the user may act in; `isCurrent` marks the active tenant. | Call first in a multi-company account. |
-| `switch_company` | Change the active tenant for this session. | Accepts only companies from `list_companies`. |
+| `switch_company` | Change the active tenant. | Accepts only companies from `list_companies`. **Returns a new token** bound to the target company (`{company, token}`); the token you called with stays on the old company. Adopt the returned token for all later calls. An MCP client that manages the bearer for you cannot swap to a token buried in a tool result, so from such a client the switch looks like it does nothing — switch with the Web API `BO/ChangeUserLastCompany` and keep its `Authorization-Token` response header instead. |
 | `describe_schema` | Entities, allow-listed fields, operators, `includes` relations for `query_data`. | Pass `entity` to keep the response small. Do not guess names. |
 | `query_data` | Read-only structured query. | See DSL below. Hard limit of 50 rows and **paging does not work** — never page or total with it. |
 | `search_invoices` | Natural-language-friendly invoice finder: `text` over line items and description, `supplierName`, `foreignSuppliersOnly`, `dateFrom`/`dateTo` or `period` (`thisMonth`, `lastMonth`, `thisYear`, `lastYear`), `skip`/`take` (max 200). | Prefer over `query_data` for "find invoices where…". At least one filter required. |
-| `aggregate_invoices` | Sum or count invoices with the same filters as `search_invoices`. | Use for totals; do not page and add up client-side. |
-| `get_autotransaction` | One AutoTransaction rule as the JSON `update_autotransaction` expects. | Read before any change. |
-| `update_autotransaction` | Two-step edit of an existing rule: first call without `confirmationToken` returns the diff and a token; second call with the token commits. | Only after the user has confirmed the diff. Cannot create rules. Writes may be disabled per environment. |
+| `aggregate_invoices` | Totals over the same filters as `search_invoices`. Requires `op` (`"sum"` or `"count"`) and `scope` (`"invoice"` = whole invoices, or `"row"` = only line items matching `text`, which is then required). | Use for totals; do not page and add up client-side. |
+| `get_autotransaction` | Meant to read one AutoTransaction rule. | **Not working on the deployed servers** — returns a bare `"An error occurred invoking 'get_autotransaction'."` for every rule id (dev, observed 2026-09-10). Read the rule with the Web API instead: `GET /webapi/api/AutoTransactions/GetAutoTransactionForUiById?id=<id>` (`references/webapi/endpoints/AutoTransactions.md`). |
+| `update_autotransaction` | Meant to edit a rule. | **Not working on the deployed servers** — same generic error. Update rules over the Web API: `GetAutoTransactionForUiById` to read, then `POST /webapi/api/AutoTransactions/SaveAutoTransaction` with the edited object — read first, show the diff, get the user's yes, then save. |
+
+Only the AutoTransaction tools are broken this way: they alone reach FitekIN over HTTP, while every other tool
+reads in-process. `search_invoices`, `aggregate_invoices`, `query_data`, `describe_schema`, `list_companies` and
+`switch_company` work. For AutoTransactions, ignore the two MCP tools and use the Web API controller.
 
 ### `query_data` DSL
 
