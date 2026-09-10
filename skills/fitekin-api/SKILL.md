@@ -10,7 +10,7 @@ FitekIN is multi-company invoice-processing software. Users receive purchase inv
 ## Before the first call
 
 1. Read `references/auth.md`. Get `FITEKIN_BASE_URL` from the environment; ask if missing.
-2. Authenticate. **Prefer OAuth** when your runtime speaks MCP: the token the MCP sign-in returns is a FitekIN session token you reuse for the Web API (see `references/mcp.md` and `references/auth.md` §3a), so no password is stored. Otherwise fall back to username/password: read `FITEKIN_USERNAME`/`FITEKIN_PASSWORD` from the environment (ask if missing) and `POST {BASE_URL}/LoginApi/api/Login`; stop if `authStatus` is not `ActiveUser`. Never print or store credentials or tokens.
+2. Authenticate with **OAuth** (see `references/mcp.md` and `references/auth.md` §3a): the token the MCP sign-in returns is a FitekIN session token you reuse for the Web API, so no password is stored. Username/password login (`POST {BASE_URL}/LoginApi/api/Login` with `FITEKIN_USERNAME`/`FITEKIN_PASSWORD`) is **not usable by an agent where captcha is enforced — including production** — because the login flow needs a captcha token only a human can obtain in the browser; use it only against a dev/test host without captcha, and stop if `authStatus` is not `ActiveUser`. Never print or store credentials or tokens.
 3. If the user named a company, switch to it with `POST /webapi/api/BO/ChangeUserLastCompany?companyGuid=…` and take the new token from the `Authorization-Token` response header.
 4. Send `Authorization-Token: <token>` on every Web API call and always keep the freshest token returned in response headers.
 

@@ -41,7 +41,7 @@ Then tell the agent which host to talk to, and how to authenticate (see [`skills
 export FITEKIN_BASE_URL=https://fitekin.com   # or your test/dev host
 ```
 
-**Preferred — OAuth, no stored password.** If your agent runtime speaks MCP (Claude Code, Claude
+**Agents authenticate with OAuth.** If your agent runtime speaks MCP (Claude Code, Claude
 Desktop, Cursor, VS Code), add the FitekIN MCP server and sign in once in the browser:
 
 ```bash
@@ -55,16 +55,14 @@ redirect); the steps are in [`references/mcp.md`](skills/fitekin-api/references/
 anywhere. OAuth is currently enabled on Fitek's dev host; roll-out to the other environments is
 tracked by Fitek.
 
-**Fallback — username/password**, for hosts where OAuth is not yet enabled, or agents that cannot do
-the browser flow:
+**Username/password is not a path for an automated agent.** The login flow requires a captcha token
+that only a human can obtain in the browser, so an agent cannot sign in with a stored password on a
+host that enforces it (production does). `FITEKIN_USERNAME`/`FITEKIN_PASSWORD` are therefore only
+useful against a dev/test host where captcha is not enforced, and even there OAuth is preferred. For
+any real use, OAuth is the way in — which means OAuth must be enabled on the target host.
 
-```bash
-export FITEKIN_USERNAME=...
-export FITEKIN_PASSWORD=...
-```
-
-Either way the agent reads what it needs from the environment; credentials never go in its prompt, and
-it never prints or stores the token.
+The agent reads what it needs from the environment; credentials never go in its prompt, and it never
+prints or stores the token.
 
 ## Regenerate the API reference
 

@@ -17,14 +17,17 @@ Service prefixes under the base URL:
 | Web API | `/webapi/api` | Everything a logged-in user can do in the UI |
 | DataExchange API | `/DataExchangeWebApiCore` | Integrator import/export (separate credentials, see `data-exchange.md`) |
 
-**Two ways to get a session token.** The preferred one is OAuth through the MCP authorization server
-(§3a): a one-time browser sign-in yields a token that works for both MCP and the Web API, and no
-password is kept anywhere. Where OAuth is not available — a host that has not enabled it yet, or a
-runtime that cannot open a browser — fall back to username/password login (§1), with
-`FITEKIN_USERNAME`/`FITEKIN_PASSWORD` from the environment or the user at run time. Whichever path you
-take, never write credentials or tokens into files, prompts, logs or URLs.
+**Getting a session token: use OAuth.** OAuth through the MCP authorization server (§3a) is the path
+for an agent: a one-time browser sign-in yields a token that works for both MCP and the Web API, and
+no password is kept anywhere. **Username/password login (§1) is not viable for an automated agent
+where captcha is enforced — which includes production**: the login flow requires a captcha token that
+only a human can obtain in the browser, so a stored `FITEKIN_USERNAME`/`FITEKIN_PASSWORD` cannot
+complete it. Use §1 only against a dev/test host that does not enforce captcha. This means OAuth must
+be enabled on the target host for the skill to work there; where it is not (see §3a for how to check),
+the skill cannot authenticate an agent yet. Never write credentials or tokens into files, prompts,
+logs or URLs.
 
-## 1. Log in (username/password — the fallback path; for OAuth see §3a)
+## 1. Log in (username/password — dev/test only, blocked by captcha in production; for OAuth see §3a)
 
 ```http
 POST {BASE_URL}/LoginApi/api/Login
@@ -112,7 +115,7 @@ Two differences from step 1 worth knowing before you rely on this path:
 ## Checklist for the agent
 
 1. Read base URL from the environment; ask if missing.
-2. Get a token: prefer OAuth (§3a) when the runtime speaks MCP — no password needed; otherwise read `FITEKIN_USERNAME`/`FITEKIN_PASSWORD`, `POST /LoginApi/api/Login`, and stop on `authStatus != ActiveUser`.
+2. Get a token via OAuth (§3a) — no password needed. Username/password (`POST /LoginApi/api/Login` with `FITEKIN_USERNAME`/`FITEKIN_PASSWORD`) works only on a dev/test host without captcha; it cannot log in where captcha is enforced (production). Stop on `authStatus != ActiveUser`.
 3. If the user named a company, `ChangeUserLastCompany` and take the token from the response header.
 4. Send `Authorization-Token` on every call and keep the freshest token from response headers.
 5. On `401`: re-login once, replay the request, then report if it fails again.
