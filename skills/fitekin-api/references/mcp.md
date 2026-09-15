@@ -50,11 +50,15 @@ The first call gets `401` with a `WWW-Authenticate: Bearer resource_metadata=…
 
 Sign-in at `/authorize` is currently the Microsoft EntraID leg (Fitek staff and customers federated through EntraID). Sign-in with a plain FitekIN username/password at `/authorize` is planned; until then, users without an EntraID identity use the Web API with the Login API flow in `auth.md`.
 
-### When your runtime has no built-in MCP OAuth client
+### Driving the OAuth flow yourself
 
-The authorization server is a plain OAuth 2.1 public client endpoint, so any client can drive it by
-hand — useful for scripts, or for an agent that wants the JWT for the Web API and never speaks MCP.
-The whole chain needs nothing pre-configured but the `/mcp` URL:
+**Do this whenever the task will touch the Web API.** `claude mcp add` makes the *host* the OAuth
+client: it keeps the token in its own credential store and never hands it to the agent, so connecting
+that way leaves you able to call MCP tools and unable to make a single Web API call — which is every
+write. Driving the flow yourself is also the answer when the runtime has no MCP client at all.
+
+The authorization server is a plain OAuth 2.1 public client endpoint, and the whole chain needs
+nothing pre-configured but the `/mcp` URL:
 
 1. `GET /AIAgent/.well-known/oauth-protected-resource/mcp` → `authorization_servers[0]`.
 2. `GET {issuer}/.well-known/oauth-authorization-server` → `authorization_endpoint`, `token_endpoint`, `registration_endpoint`.
@@ -110,7 +114,7 @@ All tools take an optional `authToken` (a FitekIN JWT or the per-session handle 
 | Tool | Purpose | Notes |
 |---|---|---|
 | `list_companies` | Companies your BackOffice user is a member of; `isCurrent` marks the active tenant. | Call first in a multi-company account. **Over-scopes vs. the UI:** it returns raw active memberships with none of the per-company login/access filtering the web/mobile switcher applies, so it can list — and `switch_company` can then enter and read the data of — companies the UI hides for this user (observed on dev 2026-09-10: `list_companies` returned a company the UI's `Session/GetUserCompanies` did not). Do not treat it as the user's UI-visible set or as an authorization boundary; for the companies the user can actually use, read the Web API `GET /webapi/api/Session/GetUserCompanies`. |
-| `switch_company` | Change the active tenant. | Accepts only companies from `list_companies` — which over-scopes, so this can enter (and expose the data of) companies the UI hides; see `list_companies`. **Returns a new token** bound to the target company (`{company, token}`); the token you called with stays on the old company. Adopt the returned token for all later calls. An MCP client that manages the bearer for you cannot swap to a token buried in a tool result, so from such a client the switch looks like it does nothing — switch with the Web API `BO/ChangeUserLastCompany` and keep its `Authorization-Token` response header instead. |
+| `switch_company` | Change the active tenant. | Accepts only companies from `list_companies` — which over-scopes, so this can enter (and expose the data of) companies the UI hides; see `list_companies`. **Returns a new token** bound to the target company (`{company, token}`); the token you called with stays on the old company. Adopt the returned token for all later calls. An MCP client that manages the bearer for you cannot swap to a token buried in a tool result, so from such a client the switch looks like it does nothing — switch with the Web API `BO/ChangeUserLastCompany` and keep its `Authorization-Token` response header instead. **It is also the only tool that returns a usable JWT at all**, so when the host owns your OAuth token this is how you get one for the Web API without a second sign-in — switching to the company you are already in is accepted and returns a token. What it returns is *re-minted*, not your sign-in token: on dev it carries `LoginMethod: CompanySwitch (11)`, a null `SessionLengthMinutes`, and an **8-hour** expiry regardless of the 2-hour session it came from. It keeps the originating `SessionId`, so it dies with that session — a longer `ExpirationDate` does not mean it outlives a logout or a company switch. |
 | `describe_schema` | Entities, allow-listed fields, operators, `includes` relations for `query_data`. | Pass `entity` to keep the response small. Do not guess names. |
 | `query_data` | Read-only structured query. | See DSL below. Hard limit of 50 rows and **paging does not work** — never page or total with it. |
 | `search_invoices` | Natural-language-friendly invoice finder: `text` over line items and description, `supplierName`, `foreignSuppliersOnly`, `dateFrom`/`dateTo` or `period` (`thisMonth`, `lastMonth`, `thisYear`, `lastYear`), `skip`/`take` (max 200). | Prefer over `query_data` for "find invoices where…". At least one filter required. |

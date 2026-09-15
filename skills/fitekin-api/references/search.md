@@ -60,7 +60,14 @@ Ids and enums — `Value` is a number or `Values` a list of numbers:
 
 Booleans — `Value` is `true`/`false`:
 
-`IsCredit`, `IsDebit`, `IsDuplicate`, `OnlyMyTasks` (only invoices with a task assigned to the current user), `InvoiceNonSubmitted`, `OnExternalApprovement`, `IsExportAfterApprovalEnabled`.
+`IsCredit`, `IsDebit`, `IsDuplicate`, `InvoiceNonSubmitted`, `OnExternalApprovement`, `IsExportAfterApprovalEnabled`.
+
+**Do not send `OnlyMyTasks`.** It is not a boolean and it is not settable by a client: the server
+unboxes `Value` straight to a `Guid`, and any JSON you send arrives as a string or a bool, so the
+cast throws and the request fails with `500 Unable to cast object of type 'System.Boolean'/'System.String'
+to type 'System.Guid'` (observed on dev, 2026-09-15). The server adds this restriction itself for users
+without the `CanViewAnyInvoice` right. To find invoices awaiting one person, use
+`WaitingForConfirmationGuidList` with their user GUID in `Values`.
 
 People (GUID lists in `Values`): `HandledByGuidList`, `HeadingTowardsGuidList`, `WaitingForConfirmationGuidList`; numeric variants `HandledByIdList`, `WaitingForConfirmationIdList`.
 

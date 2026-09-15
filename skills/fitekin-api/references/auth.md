@@ -7,7 +7,13 @@ FitekIN is multi-company: every user session is bound to exactly one company (te
 | Environment | `FITEKIN_BASE_URL` |
 |---|---|
 | Production | `https://fitekin.com` |
-| Test / UAT / dev | `https://test.fitekin.com`, `https://uat.fitekin.com`, `https://dev.fitekin.com` (Fitek-internal or customer-specific hosts; ask the user) |
+| Test / UAT / dev | `https://test.fitekin.com`, `https://uat.fitekin.com`, `https://dev.fitekin.com` |
+
+**Resolving a bare environment name.** If the user says `prod`/`production`, `test`, `uat` or `dev`
+and no customer-specific host has come up in the conversation, resolve it to the host in the table and
+say which one you used — do not stop to ask. Ask only when the word is not one of those four, when a
+Fitek-internal or customer-specific host has already been named (that one wins), or when
+`FITEKIN_BASE_URL` is set to a host that contradicts the keyword.
 
 Service prefixes under the base URL:
 
@@ -86,17 +92,56 @@ Authorization-Token: <token>
 
 The response's `Authorization-Token` header holds the token for the new company. Use it for all further calls. Confirm the switch with `GET /webapi/api/Company/GetCurrentCompany` (see [`webapi/endpoints/Company.md`](webapi/endpoints/Company.md)).
 
+**This call rotates the session id, so capture that header or you lose the session.** The server
+issues a *new* session id and every token carrying the old one — the token you just called with, and
+any `switch_company` token you obtained earlier on the same session — starts returning `401`
+immediately, while its `ExpirationDate` still reads as in the future. The header on this very
+response is the only surviving credential. Persist it where it outlives the current step (a file, not
+a variable in a script that is about to exit); a `401` from a token that has not expired means you
+dropped it and must sign in again. The same applies to the ordinary sliding-refresh header on every
+other response — always keep the newest token.
+
+`ChangeUserLastCompany` also **writes the user's `LastCompany`**, which is where their next browser
+login lands. Switch back when you are done, or you have quietly moved the user's default company.
+
 `GET /webapi/api/Session/GetUserCompanies?lastCompanyGuid=<guid>` returns the full company list with access details when `userCompanies` from login is not enough.
 
 ## 3a. Alternative: OAuth 2.1 through the MCP authorization server
 
-If the agent runtime speaks MCP (see `mcp.md`), the browser sign-in that `claude mcp add` triggers ends with an OAuth `access_token` from `https://<host>/AzureLogin/token`. That token **is the same FitekIN session JWT** that step 1 returns, so:
+The OAuth `access_token` issued by `https://<host>/AzureLogin/token` **is the same FitekIN session JWT** that step 1 returns, so:
 
 - use it unchanged as `Authorization-Token` for the Web API and as `Authorization: Bearer` for `/AIAgent/mcp`;
 - steps 2, 3 and 4 above apply to it as written (sliding refresh headers, `ChangeUserLastCompany`, logout);
 - conversely, a token from `POST /LoginApi/api/Login` is accepted by the MCP tools' `authToken` parameter and as the MCP bearer header.
 
-One login, one token, both channels. Today the `/authorize` sign-in is the Microsoft EntraID leg; FitekIN username/password sign-in at `/authorize` is planned. Users without an EntraID identity take step 1. OAuth is enabled per host — it is live on Fitek's dev host; where the protected-resource document (`/AIAgent/.well-known/oauth-protected-resource/mcp`) returns `404`, OAuth is not enabled there yet, so use §1.
+One login, one token, both channels — **but only if you are the one holding the token.**
+
+### Getting a token you can actually use
+
+`claude mcp add --transport http fitekin https://<host>/AIAgent/mcp` makes the **host** the OAuth
+client. The host runs the browser sign-in, keeps the token in its own credential store, and attaches
+it to `/AIAgent/mcp` requests for you — it never hands it to the agent. No MCP tool returns it except
+`switch_company`. So after `claude mcp add` you can call the MCP tools and still not make a single
+Web API call, which is most write operations.
+
+When that happens, do not hunt for the host's stored token and do not fall back to asking the user for
+a pasted token or a password. Get your own, in this order:
+
+1. **Run the OAuth flow yourself** — see "Driving the OAuth flow yourself" in `mcp.md`. Client
+   registration is dynamic and anonymous, PKCE is generated at runtime, and the only thing you need in
+   advance is the host name. The user signs in once in their browser; you hold the resulting JWT and
+   use it on both channels. Take this path whenever the task will touch the Web API — which is any
+   change to an invoice, master data, approval or export.
+2. **Or take `switch_company`'s token**, when an MCP connection is already up and a second sign-in is
+   not worth it. It is the one tool whose result carries a raw JWT (`{company, token}`), and switching
+   to the company you are already in is an accepted no-op. The token it hands back is *re-minted*, not
+   the one you signed in with — see `switch_company` in `mcp.md` for how it differs.
+
+Verified on dev, 2026-09-15: a hand-driven OAuth token went straight to `GET /webapi/api/Company/GetCurrentCompany`
+and `POST /webapi/api/Invoice/Save` (rights-checked, `200`, change persisted) with no re-login and no
+`switch_company` call; the `switch_company` token did the same.
+
+Today the `/authorize` sign-in is the Microsoft EntraID leg; FitekIN username/password sign-in at `/authorize` is planned. Users without an EntraID identity take step 1. OAuth is enabled per host — it is live on Fitek's dev host; where the protected-resource document (`/AIAgent/.well-known/oauth-protected-resource/mcp`) returns `404`, OAuth is not enabled there yet, so use §1.
 
 Two differences from step 1 worth knowing before you rely on this path:
 

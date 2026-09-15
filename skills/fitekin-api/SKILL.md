@@ -9,10 +9,19 @@ FitekIN is multi-company invoice-processing software. Users receive purchase inv
 
 ## Before the first call
 
-1. Read `references/auth.md`. Get `FITEKIN_BASE_URL` from the environment; ask if missing.
-2. Authenticate with **OAuth** (see `references/mcp.md` and `references/auth.md` §3a): the token the MCP sign-in returns is a FitekIN session token you reuse for the Web API, so no password is stored. Username/password login (`POST {BASE_URL}/LoginApi/api/Login` with `FITEKIN_USERNAME`/`FITEKIN_PASSWORD`) is **not usable by an agent where captcha is enforced — including production** — because the login flow needs a captcha token only a human can obtain in the browser; use it only against a dev/test host without captcha, and stop if `authStatus` is not `ActiveUser`. Never print or store credentials or tokens.
+1. Read `references/auth.md`. Get `FITEKIN_BASE_URL` from the environment. If it is missing but the user
+   named `prod`/`test`/`uat`/`dev`, resolve it from the table in `auth.md` and say which host you used;
+   ask only when no host can be resolved that way.
+2. Authenticate with **OAuth** — and **run the flow yourself** (`references/mcp.md`, "Driving the OAuth
+   flow yourself"). Connecting with `claude mcp add` makes the host the OAuth client: it keeps the token
+   and never gives it to you, leaving you unable to make any Web API call. If you are already connected
+   that way and do not want a second sign-in, `switch_company` is the one tool that returns a usable JWT.
+   The token is a FitekIN session token you reuse for the Web API, so no password is stored. Username/password login (`POST {BASE_URL}/LoginApi/api/Login` with `FITEKIN_USERNAME`/`FITEKIN_PASSWORD`) is **not usable by an agent where captcha is enforced — including production** — because the login flow needs a captcha token only a human can obtain in the browser; use it only against a dev/test host without captcha, and stop if `authStatus` is not `ActiveUser`. Never print or store credentials or tokens.
 3. If the user named a company, switch to it with `POST /webapi/api/BO/ChangeUserLastCompany?companyGuid=…` and take the new token from the `Authorization-Token` response header.
-4. Send `Authorization-Token: <token>` on every Web API call and always keep the freshest token returned in response headers.
+4. Send `Authorization-Token: <token>` on every Web API call and **persist the freshest token from every
+   response** somewhere that outlives the current step. `BO/ChangeUserLastCompany` rotates the session id,
+   so dropping its response header kills the session outright — a `401` on a token that has not expired
+   means you lost it (`references/auth.md` §3).
 
 ## Finding the right endpoint
 
@@ -47,7 +56,7 @@ Controller names map to UI areas: `Invoice` (purchase invoices, approval, confir
 
 **Bulk import/export for an ERP**: only with integrator credentials, via `references/data-exchange.md`.
 
-**Questions the Web API cannot answer directly** (arbitrary filters across entities, free-text search over line items, sums and counts): use the FitekIN MCP server, `references/mcp.md`. If your runtime supports MCP, `claude mcp add --transport http fitekin https://<host>/AIAgent/mcp` and sign in once; the OAuth access token you get is a FitekIN session JWT and also works for every Web API call in this skill.
+**Questions the Web API cannot answer directly** (arbitrary filters across entities, free-text search over line items, sums and counts): use the FitekIN MCP server, `references/mcp.md`. If your runtime supports MCP, `claude mcp add --transport http fitekin https://<host>/AIAgent/mcp` and sign in once. That token is a FitekIN session JWT that would also authorise every Web API call in this skill — but a host-managed MCP client keeps it to itself, so to actually use it on the Web API you must either run the OAuth flow yourself or take `switch_company`'s token (`references/auth.md` §3a).
 
 ## Linking a user to the web UI
 
