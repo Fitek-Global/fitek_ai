@@ -129,9 +129,11 @@ a pasted token or a password. Get your own, in this order:
 
 1. **Run the OAuth flow yourself** — see "Driving the OAuth flow yourself" in `mcp.md`. Client
    registration is dynamic and anonymous, PKCE is generated at runtime, and the only thing you need in
-   advance is the host name. The user signs in once in their browser; you hold the resulting JWT and
-   use it on both channels. Take this path whenever the task will touch the Web API — which is any
-   change to an invoice, master data, approval or export.
+   advance is the host name. **Open the `/authorize` URL in the user's real browser** (the one with
+   their live EntraID session — Claude in Chrome, not an isolated agent pane): if that session is
+   active the flow completes hands-free with no login prompt, and otherwise the user signs in there
+   once. You then hold the resulting JWT and use it on both channels. Take this path whenever the task
+   will touch the Web API — which is any change to an invoice, master data, approval or export.
 2. **Or take `switch_company`'s token**, when an MCP connection is already up and a second sign-in is
    not worth it. It is the one tool whose result carries a raw JWT (`{company, token}`), and switching
    to the company you are already in is an accepted no-op. The token it hands back is *re-minted*, not

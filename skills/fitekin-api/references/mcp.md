@@ -73,9 +73,27 @@ nothing pre-configured but the `/mcp` URL:
 
    A loopback `http://localhost:<port>/...` redirect URI is accepted; listen on that port for the code.
 4. `GET {authorization_endpoint}?response_type=code&client_id=…&redirect_uri=…&state=…&code_challenge=…&code_challenge_method=S256`
-   in a browser. `S256` is the only challenge method offered.
+   **in the user's own browser** (the one holding their live Microsoft/EntraID session — e.g. Claude
+   in Chrome, not an isolated agent browser). `S256` is the only challenge method offered. See
+   "Which browser" below — this choice decides whether the human has to do anything at all.
 5. `POST {token_endpoint}` form-encoded with `grant_type=authorization_code`, `code`, `redirect_uri`,
    `client_id`, `code_verifier`. No client authentication (`token_endpoint_auth_methods_supported: ["none"]`).
+
+**Which browser.** Open the `/authorize` URL in the **user's real browser**, the one that already
+carries their EntraID session (drive it with the Claude-in-Chrome tools, not the isolated agent
+browser pane). Two payoffs:
+
+- If that browser has a live Microsoft SSO session — the usual case for a signed-in Fitek user — the
+  `/authorize` request bounces straight through EntraID to the `http://localhost:<port>/callback`
+  redirect and your loopback listener captures the code **with no interaction at all**: no email, no
+  password, no MFA. The whole "sign-in" is hands-free.
+- If there is no session, the user logs in there once, in their own browser, where they have their
+  password and MFA device. An agent must never type the password itself.
+
+The isolated agent browser pane has no Microsoft session, so it always forces a fresh email + password
++ MFA prompt — which then stalls, because the agent cannot enter the password. Use it only when the
+user's real browser is unavailable. The loopback listener catches the callback regardless of which
+browser finished the flow (it is the same machine), so there is no downside to using the real one.
 
 Three things that bite:
 
