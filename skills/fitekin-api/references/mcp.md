@@ -123,11 +123,11 @@ The `access_token` returned by `/token` **is an ordinary FitekIN session JWT**, 
 - Send it as `Authorization: Bearer <token>` to `/AIAgent/mcp` **and** as `Authorization-Token: <token>` (or `Authorization: Bearer`) to `/webapi/api/...`. No second login.
 - The reverse works too: a token obtained from `POST /LoginApi/api/Login` can be passed to MCP tools in their `authToken` parameter, or as the bearer header when you drive the MCP endpoint yourself.
 - Company binding, expiry and sliding refresh behave exactly as described in `auth.md`. Switching company does **not** re-bind a token you already hold: both `switch_company` (MCP) and `BO/ChangeUserLastCompany` (Web API) mint a **new** token for the target company and hand it back (in the tool result / the `Authorization-Token` response header). The old token keeps reading the old company. You must send the returned token on every subsequent call, on both channels — otherwise reads stay on the original tenant (see `switch_company` in the tools table).
-- Rights are the user's rights. The working MCP tools are all read-only; the one write tool, `update_autotransaction`, does not function on the deployed servers (see the tools table), so every state change — AutoTransactions included — goes through the Web API, which enforces the same per-endpoint rights.
+- Rights are the user's rights. Most MCP tools are read-only; the one write tool is `update_autotransaction`, which works when you pass `authToken` (it forwards your JWT to the same rights-checked `SaveAutoTransaction` endpoint — see the tools table). Any other state change goes through the Web API, which enforces the same per-endpoint rights.
 
 ## Tools
 
-All tools take an optional `authToken` (a FitekIN JWT or the per-session handle the server hands back). When the transport already carries the bearer header you may omit it; if both are present, `authToken` wins.
+All tools take an `authToken` (a FitekIN JWT or the per-session handle the server hands back). For the read tools it is optional — when the transport already carries the bearer header you may omit it, and if both are present `authToken` wins. **`get_autotransaction` and `update_autotransaction` require it**: they forward the caller's JWT to the Web API over HTTP and do not fall back to the transport identity, so a call without `authToken` is rejected (see their rows).
 
 | Tool | Purpose | Notes |
 |---|---|---|
@@ -137,12 +137,14 @@ All tools take an optional `authToken` (a FitekIN JWT or the per-session handle 
 | `query_data` | Read-only structured query. | See DSL below. Hard limit of 50 rows and **paging does not work** — never page or total with it. |
 | `search_invoices` | Natural-language-friendly invoice finder: `text` over line items and description, `supplierName`, `foreignSuppliersOnly`, `dateFrom`/`dateTo` or `period` (`thisMonth`, `lastMonth`, `thisYear`, `lastYear`), `skip`/`take` (max 200). | Prefer over `query_data` for "find invoices where…". At least one filter required. |
 | `aggregate_invoices` | Totals over the same filters as `search_invoices`. Requires `op` (`"sum"` or `"count"`) and `scope` (`"invoice"` = whole invoices, or `"row"` = only line items matching `text`, which is then required). | Use for totals; do not page and add up client-side. |
-| `get_autotransaction` | Meant to read one AutoTransaction rule. | **Not working on the deployed servers** — returns a bare `"An error occurred invoking 'get_autotransaction'."` for every rule id (dev, observed 2026-09-10). Read the rule with the Web API instead: `GET /webapi/api/AutoTransactions/GetAutoTransactionForUiById?id=<id>` (`references/webapi/endpoints/AutoTransactions.md`). |
-| `update_autotransaction` | Meant to edit a rule. | **Not working on the deployed servers** — same generic error. Update rules over the Web API: `GetAutoTransactionForUiById` to read, then `POST /webapi/api/AutoTransactions/SaveAutoTransaction` with the edited object — read first, show the diff, get the user's yes, then save. |
+| `get_autotransaction` | Reads one AutoTransaction rule as the JSON `update_autotransaction` expects. | **Works — but you MUST pass `authToken`.** It forwards your JWT to the Web API, so unlike the read tools it does not fall back to the transport identity; a call without `authToken` is rejected. Verified on dev 2026-09-17: with `authToken` it returns the full rule. (The "`An error occurred invoking 'get_autotransaction'`" seen on 2026-09-10 was a call with no `authToken` — the message was masked; FIN-3565 makes it name the cause.) The Web API `GET /webapi/api/AutoTransactions/GetAutoTransactionForUiById?id=<id>` returns the same object if you prefer HTTP. |
+| `update_autotransaction` | Edits an existing rule, in two steps. | **Works — pass `authToken`.** Call first WITHOUT `confirmationToken`: nothing is written and you get back the diff plus a `confirmationToken`. Show the diff to the user, get their yes, then call again with the same JSON and that token to commit. Send only the `Id` plus the fields you are changing (omitted fields keep their stored values). New rules are created in the FitekIN UI, not here. Verified on dev 2026-09-17: the preview step returns `confirmation_required`. The Web API path (`SaveAutoTransaction`) also works if you drive the merge yourself. |
 
-Only the AutoTransaction tools are broken this way: they alone reach FitekIN over HTTP, while every other tool
-reads in-process. `search_invoices`, `aggregate_invoices`, `query_data`, `describe_schema`, `list_companies` and
-`switch_company` work. For AutoTransactions, ignore the two MCP tools and use the Web API controller.
+Both AutoTransaction tools reach FitekIN over HTTP (every other tool reads in-process) and both **require
+`authToken`**. They are not broken — the earlier "generic error for every rule id" was a missing-`authToken`
+call whose real message the MCP SDK masked; FIN-3565 (surface `McpException` messages) fixes the masking.
+`search_invoices`, `aggregate_invoices`, `query_data`, `describe_schema`, `list_companies` and `switch_company`
+work as before.
 
 ### `query_data` DSL
 
