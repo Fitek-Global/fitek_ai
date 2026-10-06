@@ -93,7 +93,7 @@ function typeOf(prop, schemas) {
   if (prop.$ref) {
     const n = refName(prop.$ref);
     const target = schemas[n];
-    return target && target.enum ? `enum [${n}](${safe(n)}.md)` : `[${n}](${safe(n)}.md)`;
+    return target && target.enum ? `enum [${n}](${modelFile(n)}.md)` : `[${n}](${modelFile(n)}.md)`;
   }
   if (prop.allOf && prop.allOf.length === 1) return typeOf(prop.allOf[0], schemas);
   if (prop.type === 'array') return `${typeOf(prop.items, schemas) || 'any'}[]`;
@@ -112,7 +112,7 @@ function modelLink(name, from = 'endpoints') {
   const bare = name.replace(/\[\]$/, '');
   if (PRIMITIVES.has(bare)) return `\`${name}\``;
   const prefix = from === 'index' ? 'models/' : '../models/';
-  return `[${name}](${prefix}${safe(bare)}.md)`;
+  return `[${name}](${prefix}${modelFile(bare)}.md)`;
 }
 
 function pickBodySchema(requestBody) {
@@ -216,6 +216,58 @@ function safe(name) {
   return name.replace(/[^A-Za-z0-9_.-]/g, '_');
 }
 
+/**
+ * Model file names must stay short: the plugin is cloned under
+ * `C:\Users\<user>\.claude\plugins\marketplaces\fitek-ai\`, and Windows Git without
+ * core.longpaths fails on paths over 260 characters. Full CLR names such as
+ * `NS.Requests.XImportRequest`1[System.Collections.Generic.List`1[NS.Payloads.XPayload]]`
+ * become `XImportRequest_List_XPayload`; the model file heading keeps the full name.
+ */
+const MAX_MODEL_FILE = 80;
+let modelFiles = new Map();
+
+/** Keep the last `keep` segments of every dotted identifier, drop generic arity, join type arguments with `_`. */
+function compactName(name, keep) {
+  const shortIds = name.replace(/[A-Za-z0-9_]+(?:\.[A-Za-z0-9_]+)+/g, (id) => id.split('.').slice(-keep).join('.'));
+  return safe(shortIds.replace(/`\d+/g, '').replace(/[[\],\s]+/g, '_').replace(/^_+|_+$/g, ''));
+}
+
+function hashSuffix(name) {
+  let h = 0x811c9dc5; // FNV-1a, stable across runs and machines
+  for (let i = 0; i < name.length; i++) h = Math.imul(h ^ name.charCodeAt(i), 0x01000193) >>> 0;
+  return h.toString(16).padStart(8, '0').slice(0, 6);
+}
+
+/** Assign a unique, short file name (without `.md`) to every schema of one API document. */
+function buildModelFiles(names) {
+  const assigned = new Map();
+  let pending = [...names];
+  for (const keep of [1, 2]) {
+    const byShort = new Map();
+    for (const n of pending) {
+      const s = compactName(n, keep);
+      if (!byShort.has(s)) byShort.set(s, []);
+      byShort.get(s).push(n);
+    }
+    pending = [];
+    for (const [s, group] of byShort) {
+      if (group.length === 1 && s.length <= MAX_MODEL_FILE) assigned.set(group[0], s);
+      else pending.push(...group);
+    }
+  }
+  for (const n of pending) assigned.set(n, `${compactName(n, 1).slice(0, MAX_MODEL_FILE - 7)}_${hashSuffix(n)}`);
+  const taken = new Set();
+  for (const [n, f] of assigned) {
+    if (taken.has(f.toLowerCase())) throw new Error(`model file name collision: ${f} (${n})`);
+    taken.add(f.toLowerCase());
+  }
+  return assigned;
+}
+
+function modelFile(name) {
+  return modelFiles.get(name) || safe(name);
+}
+
 function writeModelFile(dir, name, schema, schemas, usedBy) {
   const lines = [];
   lines.push(`# ${name}`);
@@ -255,7 +307,7 @@ function writeModelFile(dir, name, schema, schemas, usedBy) {
     for (const u of [...uses].sort()) lines.push(`- ${u}`);
     lines.push('');
   }
-  fs.writeFileSync(path.join(dir, 'models', `${safe(name)}.md`), lines.join('\n'));
+  fs.writeFileSync(path.join(dir, 'models', `${modelFile(name)}.md`), lines.join('\n'));
 }
 
 function generate(docMeta) {
@@ -266,6 +318,7 @@ function generate(docMeta) {
   }
   const doc = JSON.parse(fs.readFileSync(file, 'utf8'));
   const schemas = (doc.components && doc.components.schemas) || doc.definitions || {};
+  modelFiles = buildModelFiles(Object.keys(schemas));
   const ops = collectOps(doc);
   const dir = path.join(referencesRoot, docMeta.dir);
   fs.rmSync(dir, { recursive: true, force: true });
@@ -287,7 +340,7 @@ function generate(docMeta) {
   for (const [n, s] of Object.entries(schemas)) {
     for (const [pn, p] of Object.entries(s.properties || {})) {
       const target = p.$ref ? refName(p.$ref) : p.items && p.items.$ref ? refName(p.items.$ref) : null;
-      if (target) note(target, `[${n}](${safe(n)}.md).${pn}`);
+      if (target) note(target, `[${n}](${modelFile(n)}.md).${pn}`);
     }
   }
 
