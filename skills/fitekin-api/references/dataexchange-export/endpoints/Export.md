@@ -12,11 +12,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.ClientsExportRequest](../models/DataExchangeModel.Requests.ClientsExportRequest.md) as `application/json`
+[DataExchangeModel.Requests.ClientsExportRequest](../models/ClientsExportRequest.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.Payloads.ClientExportPayload](../models/DataExchangeModel.Payloads.ClientExportPayload.md)
+[DataExchangeModel.Payloads.ClientExportPayload](../models/ClientExportPayload.md)
 
 ## POST /Files
 
@@ -26,7 +26,7 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.FilesExportRequest](../models/DataExchangeModel.Requests.FilesExportRequest.md) as `application/json`
+[DataExchangeModel.Requests.FilesExportRequest](../models/FilesExportRequest.md) as `application/json`
 
 **Response (200)**
 
@@ -40,11 +40,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.InvoicesExportRequest](../models/DataExchangeModel.Requests.InvoicesExportRequest.md) as `application/json`
+[DataExchangeModel.Requests.InvoicesExportRequest](../models/InvoicesExportRequest.md) as `application/json`
 
 **Response (200)**
 
-[EInvoice.einvoiceStandard.E_Invoice](../models/EInvoice.einvoiceStandard.E_Invoice.md)
+[EInvoice.einvoiceStandard.E_Invoice](../models/E_Invoice.md)
 
 ## POST /InvoicesExtended
 
@@ -54,11 +54,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.InvoicesExportRequest](../models/DataExchangeModel.Requests.InvoicesExportRequest.md) as `application/json`
+[DataExchangeModel.Requests.InvoicesExportRequest](../models/InvoicesExportRequest.md) as `application/json`
 
 **Response (200)**
 
-[EInvoice.einvoiceStandard.E_Invoice](../models/EInvoice.einvoiceStandard.E_Invoice.md)
+[EInvoice.einvoiceStandard.E_Invoice](../models/E_Invoice.md)
 
 ## POST /PurchaseOrderCostObjectives
 
@@ -68,11 +68,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.PurchaseOrderCostObjectivesExportRequest](../models/DataExchangeModel.Requests.PurchaseOrderCostObjectivesExportRequest.md) as `application/json`
+[DataExchangeModel.Requests.PurchaseOrderCostObjectivesExportRequest](../models/PurchaseOrderCostObjectivesExportRequest.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.Payloads.PurchaseOrderRowCostObjectivesPayload[]](../models/DataExchangeModel.Payloads.PurchaseOrderRowCostObjectivesPayload.md)
+[DataExchangeModel.Payloads.PurchaseOrderRowCostObjectivesPayload[]](../models/PurchaseOrderRowCostObjectivesPayload.md)
 
 ## POST /PurchaseOrders
 
@@ -82,11 +82,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.PurchaseOrdersExportRequest](../models/DataExchangeModel.Requests.PurchaseOrdersExportRequest.md) as `application/json`
+[DataExchangeModel.Requests.PurchaseOrdersExportRequest](../models/PurchaseOrdersExportRequest.md) as `application/json`
 
 **Response (200)**
 
-[EInvoice.einvoiceStandard.E_Invoice](../models/EInvoice.einvoiceStandard.E_Invoice.md)
+[EInvoice.einvoiceStandard.E_Invoice](../models/E_Invoice.md)
 
 ## POST /Suppliers
 
@@ -96,11 +96,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.SuppliersExportRequest](../models/DataExchangeModel.Requests.SuppliersExportRequest.md) as `application/json`
+[DataExchangeModel.Requests.SuppliersExportRequest](../models/SuppliersExportRequest.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.Payloads.SupplierExportPayload[]](../models/DataExchangeModel.Payloads.SupplierExportPayload.md)
+[DataExchangeModel.Payloads.SupplierExportPayload[]](../models/SupplierExportPayload.md)
 
 ## POST /TransactionRows
 
@@ -110,11 +110,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.TransactionRowsRequest](../models/DataExchangeModel.Requests.TransactionRowsRequest.md) as `application/json`
+[DataExchangeModel.Requests.TransactionRowsRequest](../models/TransactionRowsRequest.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.Payloads.TransactionRowPayload[]](../models/DataExchangeModel.Payloads.TransactionRowPayload.md)
+[DataExchangeModel.Payloads.TransactionRowPayload[]](../models/TransactionRowPayload.md)
 
 ## POST /Users
 
@@ -124,8 +124,8 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.UsersExportRequest](../models/DataExchangeModel.Requests.UsersExportRequest.md) as `application/json`
+[DataExchangeModel.Requests.UsersExportRequest](../models/UsersExportRequest.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.Payloads.UserExportPayload[]](../models/DataExchangeModel.Payloads.UserExportPayload.md)
+[DataExchangeModel.Payloads.UserExportPayload[]](../models/UserExportPayload.md)

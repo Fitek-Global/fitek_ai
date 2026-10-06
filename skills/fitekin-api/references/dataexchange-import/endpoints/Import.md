@@ -12,11 +12,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.AccountImportRequest`1[DataExchangeModel.Payloads.AccountPayload]](../models/DataExchangeModel.Requests.AccountImportRequest_1_DataExchangeModel.Payloads.AccountPayload_.md) as `application/json`
+[DataExchangeModel.Requests.AccountImportRequest`1[DataExchangeModel.Payloads.AccountPayload]](../models/AccountImportRequest_AccountPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.AccountPayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.AccountPayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.AccountPayload]](../models/ImportResult_AccountPayload.md)
 
 ## POST /Accounts
 
@@ -26,11 +26,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.AccountImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.AccountPayload]]](../models/DataExchangeModel.Requests.AccountImportRequest_1_System.Collections.Generic.List_1_DataExchangeModel.Payloads.AccountPayload__.md) as `application/json`
+[DataExchangeModel.Requests.AccountImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.AccountPayload]]](../models/AccountImportRequest_List_AccountPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.GeneralResponse](../models/DataExchangeModel.GeneralResponse.md)
+[DataExchangeModel.GeneralResponse](../models/GeneralResponse.md)
 
 ## POST /Archive
 
@@ -40,11 +40,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.ArchiveInvoiceImportRequest](../models/DataExchangeModel.Requests.ArchiveInvoiceImportRequest.md) as `application/xml`
+[DataExchangeModel.Requests.ArchiveInvoiceImportRequest](../models/ArchiveInvoiceImportRequest.md) as `application/xml`
 
 **Response (200)**
 
-[DataExchangeModel.ArchiveInvoiceImportResponse](../models/DataExchangeModel.ArchiveInvoiceImportResponse.md)
+[DataExchangeModel.ArchiveInvoiceImportResponse](../models/ArchiveInvoiceImportResponse.md)
 
 ## POST /Companies
 
@@ -54,11 +54,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.General.Input.CompanyImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.CompanyPayload]]](../models/DataExchangeModel.General.Input.CompanyImportRequest_1_System.Collections.Generic.List_1_DataExchangeModel.Payloads.CompanyPayload__.md) as `application/json`
+[DataExchangeModel.General.Input.CompanyImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.CompanyPayload]]](../models/CompanyImportRequest_List_CompanyPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.GeneralResponse](../models/DataExchangeModel.GeneralResponse.md)
+[DataExchangeModel.GeneralResponse](../models/GeneralResponse.md)
 
 ## POST /Company
 
@@ -68,11 +68,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.General.Input.CompanyImportRequest`1[DataExchangeModel.Payloads.CompanyPayload]](../models/DataExchangeModel.General.Input.CompanyImportRequest_1_DataExchangeModel.Payloads.CompanyPayload_.md) as `application/json`
+[DataExchangeModel.General.Input.CompanyImportRequest`1[DataExchangeModel.Payloads.CompanyPayload]](../models/CompanyImportRequest_CompanyPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.CompanyPayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.CompanyPayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.CompanyPayload]](../models/ImportResult_CompanyPayload.md)
 
 ## POST /ConfirmationFlowAction
 
@@ -82,11 +82,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.General.Input.ImportRequest`1[DataExchangeModel.Payloads.InvoiceConfirmationPayload]](../models/DataExchangeModel.General.Input.ImportRequest_1_DataExchangeModel.Payloads.InvoiceConfirmationPayload_.md) as `application/json`
+[DataExchangeModel.General.Input.ImportRequest`1[DataExchangeModel.Payloads.InvoiceConfirmationPayload]](../models/ImportRequest_InvoiceConfirmationPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.InvoiceConfirmationPayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.InvoiceConfirmationPayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.InvoiceConfirmationPayload]](../models/ImportResult_InvoiceConfirmationPayload.md)
 
 ## POST /Dimension
 
@@ -96,11 +96,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.DimensionImportRequest`1[DataExchangeModel.Payloads.DimensionPayload]](../models/DataExchangeModel.Requests.DimensionImportRequest_1_DataExchangeModel.Payloads.DimensionPayload_.md) as `application/json`
+[DataExchangeModel.Requests.DimensionImportRequest`1[DataExchangeModel.Payloads.DimensionPayload]](../models/DimensionImportRequest_DimensionPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.DimensionPayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.DimensionPayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.DimensionPayload]](../models/ImportResult_DimensionPayload.md)
 
 ## POST /Dimensions
 
@@ -110,11 +110,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.DimensionImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.DimensionPayload]]](../models/DataExchangeModel.Requests.DimensionImportRequest_1_System.Collections.Generic.List_1_DataExchangeModel.Payloads.DimensionPayload__.md) as `application/json`
+[DataExchangeModel.Requests.DimensionImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.DimensionPayload]]](../models/DimensionImportRequest_List_DimensionPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.GeneralResponse](../models/DataExchangeModel.GeneralResponse.md)
+[DataExchangeModel.GeneralResponse](../models/GeneralResponse.md)
 
 ## POST /File
 
@@ -124,11 +124,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.FileImportRequest`1[DataExchangeModel.Payloads.FilePayload]](../models/DataExchangeModel.Requests.FileImportRequest_1_DataExchangeModel.Payloads.FilePayload_.md) as `application/json`
+[DataExchangeModel.Requests.FileImportRequest`1[DataExchangeModel.Payloads.FilePayload]](../models/FileImportRequest_FilePayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.FilePayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.FilePayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.FilePayload]](../models/ImportResult_FilePayload.md)
 
 ## POST /Invoice
 
@@ -138,11 +138,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.InvoiceImportRequest](../models/DataExchangeModel.Requests.InvoiceImportRequest.md) as `application/xml`
+[DataExchangeModel.Requests.InvoiceImportRequest](../models/InvoiceImportRequest.md) as `application/xml`
 
 **Response (200)**
 
-[DataExchangeModel.InvoiceImportResponse](../models/DataExchangeModel.InvoiceImportResponse.md)
+[DataExchangeModel.InvoiceImportResponse](../models/InvoiceImportResponse.md)
 
 ## POST /InvoiceHeaderExtensionListValue
 
@@ -152,11 +152,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.InvoiceHeaderExtensionImportRequest`1[DataExchangeModel.Payloads.InvoiceHeaderExtensionPayload]](../models/DataExchangeModel.Requests.InvoiceHeaderExtensionImportRequest_1_DataExchangeModel.Payloads.InvoiceHeaderExtensionPayload_.md) as `application/json`
+[DataExchangeModel.Requests.InvoiceHeaderExtensionImportRequest`1[DataExchangeModel.Payloads.InvoiceHeaderExtensionPayload]](../models/InvoiceHeaderExtensionImportRequest_InvoiceHeaderExtensionPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.InvoiceHeaderExtensionPayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.InvoiceHeaderExtensionPayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.InvoiceHeaderExtensionPayload]](../models/ImportResult_InvoiceHeaderExtensionPayload.md)
 
 ## POST /InvoiceHeaderExtensionListValues
 
@@ -166,11 +166,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.InvoiceHeaderExtensionImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.InvoiceHeaderExtensionPayload]]](../models/DataExchangeModel.Requests.InvoiceHeaderExtensionImportRequest_1_System.Collections.Generic.List_1_DataExchangeModel.Payloads.InvoiceHeaderExtensionPayload__.md) as `application/json`
+[DataExchangeModel.Requests.InvoiceHeaderExtensionImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.InvoiceHeaderExtensionPayload]]](../models/InvoiceHeaderExtensionImportRequest_List_InvoiceHeaderExtensionPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.GeneralResponse](../models/DataExchangeModel.GeneralResponse.md)
+[DataExchangeModel.GeneralResponse](../models/GeneralResponse.md)
 
 ## POST /InvoicesUpdate
 
@@ -180,11 +180,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.General.Input.ImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.InvoiceUpdatePayload]]](../models/DataExchangeModel.General.Input.ImportRequest_1_System.Collections.Generic.List_1_DataExchangeModel.Payloads.InvoiceUpdatePayload__.md) as `application/json`
+[DataExchangeModel.General.Input.ImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.InvoiceUpdatePayload]]](../models/ImportRequest_List_InvoiceUpdatePayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.GeneralResponse](../models/DataExchangeModel.GeneralResponse.md)
+[DataExchangeModel.GeneralResponse](../models/GeneralResponse.md)
 
 ## POST /InvoiceType
 
@@ -194,11 +194,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.InvoiceTypeImportRequest`1[DataExchangeModel.Payloads.InvoiceTypePayload]](../models/DataExchangeModel.Requests.InvoiceTypeImportRequest_1_DataExchangeModel.Payloads.InvoiceTypePayload_.md) as `application/json`
+[DataExchangeModel.Requests.InvoiceTypeImportRequest`1[DataExchangeModel.Payloads.InvoiceTypePayload]](../models/InvoiceTypeImportRequest_InvoiceTypePayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.InvoiceTypePayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.InvoiceTypePayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.InvoiceTypePayload]](../models/ImportResult_InvoiceTypePayload.md)
 
 ## POST /InvoiceTypes
 
@@ -208,11 +208,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.InvoiceTypeImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.InvoiceTypePayload]]](../models/DataExchangeModel.Requests.InvoiceTypeImportRequest_1_System.Collections.Generic.List_1_DataExchangeModel.Payloads.InvoiceTypePayload__.md) as `application/json`
+[DataExchangeModel.Requests.InvoiceTypeImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.InvoiceTypePayload]]](../models/InvoiceTypeImportRequest_List_InvoiceTypePayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.GeneralResponse](../models/DataExchangeModel.GeneralResponse.md)
+[DataExchangeModel.GeneralResponse](../models/GeneralResponse.md)
 
 ## POST /InvoiceUBL
 
@@ -222,11 +222,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.InvoiceUBLImportRequest](../models/DataExchangeModel.Requests.InvoiceUBLImportRequest.md) as `application/xml`
+[DataExchangeModel.Requests.InvoiceUBLImportRequest](../models/InvoiceUBLImportRequest.md) as `application/xml`
 
 **Response (200)**
 
-[DataExchangeModel.InvoiceUBLImportResponse](../models/DataExchangeModel.InvoiceUBLImportResponse.md)
+[DataExchangeModel.InvoiceUBLImportResponse](../models/InvoiceUBLImportResponse.md)
 
 ## POST /InvoiceUpdate
 
@@ -236,11 +236,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.General.Input.ImportRequest`1[DataExchangeModel.Payloads.InvoiceUpdatePayload]](../models/DataExchangeModel.General.Input.ImportRequest_1_DataExchangeModel.Payloads.InvoiceUpdatePayload_.md) as `application/json`
+[DataExchangeModel.General.Input.ImportRequest`1[DataExchangeModel.Payloads.InvoiceUpdatePayload]](../models/ImportRequest_InvoiceUpdatePayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.InvoiceUpdatePayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.InvoiceUpdatePayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.InvoiceUpdatePayload]](../models/ImportResult_InvoiceUpdatePayload.md)
 
 ## POST /MultiCompanyUser
 
@@ -250,11 +250,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.MultiCompanyUserAddRequest`1[DataExchangeModel.Payloads.MultiCompanyUserAddPayload]](../models/DataExchangeModel.Requests.MultiCompanyUserAddRequest_1_DataExchangeModel.Payloads.MultiCompanyUserAddPayload_.md) as `application/json`
+[DataExchangeModel.Requests.MultiCompanyUserAddRequest`1[DataExchangeModel.Payloads.MultiCompanyUserAddPayload]](../models/MultiCompanyUserAddRequest_MultiCompanyUserAddPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.CompanyMembershipPayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.CompanyMembershipPayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.CompanyMembershipPayload]](../models/ImportResult_CompanyMembershipPayload.md)
 
 ## POST /ProductItem
 
@@ -264,11 +264,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.ProductImportRequest`1[DataExchangeModel.Payloads.ProductPayload]](../models/DataExchangeModel.Requests.ProductImportRequest_1_DataExchangeModel.Payloads.ProductPayload_.md) as `application/json`
+[DataExchangeModel.Requests.ProductImportRequest`1[DataExchangeModel.Payloads.ProductPayload]](../models/ProductImportRequest_ProductPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.ProductPayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.ProductPayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.ProductPayload]](../models/ImportResult_ProductPayload.md)
 
 ## POST /ProductItems
 
@@ -278,11 +278,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.ProductImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.ProductPayload]]](../models/DataExchangeModel.Requests.ProductImportRequest_1_System.Collections.Generic.List_1_DataExchangeModel.Payloads.ProductPayload__.md) as `application/json`
+[DataExchangeModel.Requests.ProductImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.ProductPayload]]](../models/ProductImportRequest_List_ProductPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.GeneralResponse](../models/DataExchangeModel.GeneralResponse.md)
+[DataExchangeModel.GeneralResponse](../models/GeneralResponse.md)
 
 ## POST /PurchaseOrder
 
@@ -292,11 +292,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.PurchaseOrderImportRequest](../models/DataExchangeModel.Requests.PurchaseOrderImportRequest.md) as `application/xml`
+[DataExchangeModel.Requests.PurchaseOrderImportRequest](../models/PurchaseOrderImportRequest.md) as `application/xml`
 
 **Response (200)**
 
-[DataExchangeModel.PurchaseOrderImportResponse](../models/DataExchangeModel.PurchaseOrderImportResponse.md)
+[DataExchangeModel.PurchaseOrderImportResponse](../models/PurchaseOrderImportResponse.md)
 
 ## POST /PurchaseOrderUpdate
 
@@ -306,11 +306,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.PurchaseOrderImportRequest](../models/DataExchangeModel.Requests.PurchaseOrderImportRequest.md) as `application/xml`
+[DataExchangeModel.Requests.PurchaseOrderImportRequest](../models/PurchaseOrderImportRequest.md) as `application/xml`
 
 **Response (200)**
 
-[DataExchangeModel.PurchaseOrderImportResponse](../models/DataExchangeModel.PurchaseOrderImportResponse.md)
+[DataExchangeModel.PurchaseOrderImportResponse](../models/PurchaseOrderImportResponse.md)
 
 ## POST /Supplier
 
@@ -320,11 +320,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.SupplierImportRequest`1[DataExchangeModel.Payloads.SupplierPayload]](../models/DataExchangeModel.Requests.SupplierImportRequest_1_DataExchangeModel.Payloads.SupplierPayload_.md) as `application/json`
+[DataExchangeModel.Requests.SupplierImportRequest`1[DataExchangeModel.Payloads.SupplierPayload]](../models/SupplierImportRequest_SupplierPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.SupplierPayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.SupplierPayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.SupplierPayload]](../models/ImportResult_SupplierPayload.md)
 
 ## POST /Suppliers
 
@@ -334,11 +334,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.SupplierImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.SupplierPayload]]](../models/DataExchangeModel.Requests.SupplierImportRequest_1_System.Collections.Generic.List_1_DataExchangeModel.Payloads.SupplierPayload__.md) as `application/json`
+[DataExchangeModel.Requests.SupplierImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.SupplierPayload]]](../models/SupplierImportRequest_List_SupplierPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.GeneralResponse](../models/DataExchangeModel.GeneralResponse.md)
+[DataExchangeModel.GeneralResponse](../models/GeneralResponse.md)
 
 ## POST /TransactionRows
 
@@ -348,11 +348,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.TransactionRowsImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.TransactionRowPayload]]](../models/DataExchangeModel.Requests.TransactionRowsImportRequest_1_System.Collections.Generic.List_1_DataExchangeModel.Payloads.TransactionRowPayload__.md) as `application/json`
+[DataExchangeModel.Requests.TransactionRowsImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.TransactionRowPayload]]](../models/TransactionRowsImportRequest_List_TransactionRowPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.GeneralResponse](../models/DataExchangeModel.GeneralResponse.md)
+[DataExchangeModel.GeneralResponse](../models/GeneralResponse.md)
 
 ## POST /User
 
@@ -362,11 +362,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.UserAddRequest`1[DataExchangeModel.Payloads.UserAddPayload]](../models/DataExchangeModel.Requests.UserAddRequest_1_DataExchangeModel.Payloads.UserAddPayload_.md) as `application/json`
+[DataExchangeModel.Requests.UserAddRequest`1[DataExchangeModel.Payloads.UserAddPayload]](../models/UserAddRequest_UserAddPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.UserAddPayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.UserAddPayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.UserAddPayload]](../models/ImportResult_UserAddPayload.md)
 
 ## POST /Users
 
@@ -376,11 +376,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.UserAddRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.UserAddPayload]]](../models/DataExchangeModel.Requests.UserAddRequest_1_System.Collections.Generic.List_1_DataExchangeModel.Payloads.UserAddPayload__.md) as `application/json`
+[DataExchangeModel.Requests.UserAddRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.UserAddPayload]]](../models/UserAddRequest_List_UserAddPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.GeneralResponse](../models/DataExchangeModel.GeneralResponse.md)
+[DataExchangeModel.GeneralResponse](../models/GeneralResponse.md)
 
 ## POST /VatCode
 
@@ -390,11 +390,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.VatCodeImportRequest`1[DataExchangeModel.Payloads.VatCodePayload]](../models/DataExchangeModel.Requests.VatCodeImportRequest_1_DataExchangeModel.Payloads.VatCodePayload_.md) as `application/json`
+[DataExchangeModel.Requests.VatCodeImportRequest`1[DataExchangeModel.Payloads.VatCodePayload]](../models/VatCodeImportRequest_VatCodePayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.VatCodePayload]](../models/DataExchangeModel.General.Output.ImportResult_1_DataExchangeModel.Payloads.VatCodePayload_.md)
+[DataExchangeModel.General.Output.ImportResult`1[DataExchangeModel.Payloads.VatCodePayload]](../models/ImportResult_VatCodePayload.md)
 
 ## POST /VatCodes
 
@@ -404,8 +404,8 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.VatCodeImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.VatCodePayload]]](../models/DataExchangeModel.Requests.VatCodeImportRequest_1_System.Collections.Generic.List_1_DataExchangeModel.Payloads.VatCodePayload__.md) as `application/json`
+[DataExchangeModel.Requests.VatCodeImportRequest`1[System.Collections.Generic.List`1[DataExchangeModel.Payloads.VatCodePayload]]](../models/VatCodeImportRequest_List_VatCodePayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.GeneralResponse](../models/DataExchangeModel.GeneralResponse.md)
+[DataExchangeModel.GeneralResponse](../models/GeneralResponse.md)

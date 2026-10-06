@@ -12,11 +12,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.FileImportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFilePayload]](../models/DataExchangeModel.Requests.FileImportRequest_1_DataExchangeModel.Payloads.SalesInvoiceFilePayload_.md) as `application/json`
+[DataExchangeModel.Requests.FileImportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFilePayload]](../models/FileImportRequest_SalesInvoiceFilePayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.AddSalesInvoiceFileResponse](../models/DataExchangeModel.AddSalesInvoiceFileResponse.md)
+[DataExchangeModel.AddSalesInvoiceFileResponse](../models/AddSalesInvoiceFileResponse.md)
 
 ## POST /SalesInvoice/ExportSalesInvoice.v3
 
@@ -26,7 +26,7 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceXmlExportPayload]](../models/DataExchangeModel.Requests.ExportRequest_1_DataExchangeModel.Payloads.SalesInvoiceXmlExportPayload_.md) as `application/json`
+[DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceXmlExportPayload]](../models/ExportRequest_SalesInvoiceXmlExportPayload.md) as `application/json`
 
 **Response (200)**
 
@@ -40,11 +40,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceAttachmentsMetadataPayload]](../models/DataExchangeModel.Requests.ExportRequest_1_DataExchangeModel.Payloads.SalesInvoiceAttachmentsMetadataPayload_.md) as `application/json`
+[DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceAttachmentsMetadataPayload]](../models/ExportRequest_SalesInvoiceAttachmentsMetadataPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.SalesInvoiceAttachmentMetadataItem[]](../models/DataExchangeModel.SalesInvoiceAttachmentMetadataItem.md)
+[DataExchangeModel.SalesInvoiceAttachmentMetadataItem[]](../models/SalesInvoiceAttachmentMetadataItem.md)
 
 ## POST /SalesInvoice/ExportSalesInvoiceFile.v3
 
@@ -54,7 +54,7 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFileExportPayload]](../models/DataExchangeModel.Requests.ExportRequest_1_DataExchangeModel.Payloads.SalesInvoiceFileExportPayload_.md) as `application/json`
+[DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceFileExportPayload]](../models/ExportRequest_SalesInvoiceFileExportPayload.md) as `application/json`
 
 **Response (200)**
 
@@ -68,11 +68,11 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceMetadataExportPayload]](../models/DataExchangeModel.Requests.ExportRequest_1_DataExchangeModel.Payloads.SalesInvoiceMetadataExportPayload_.md) as `application/json`
+[DataExchangeModel.Requests.ExportRequest`1[DataExchangeModel.Payloads.SalesInvoiceMetadataExportPayload]](../models/ExportRequest_SalesInvoiceMetadataExportPayload.md) as `application/json`
 
 **Response (200)**
 
-[DataExchangeModel.SalesInvoiceMetadataExportResponse](../models/DataExchangeModel.SalesInvoiceMetadataExportResponse.md)
+[DataExchangeModel.SalesInvoiceMetadataExportResponse](../models/SalesInvoiceMetadataExportResponse.md)
 
 ## POST /SalesInvoice/ImportSalesInvoice.v3
 
@@ -82,8 +82,8 @@ _No parameters._
 
 **Request body**
 
-[DataExchangeModel.Requests.SalesInvoiceImportRequest](../models/DataExchangeModel.Requests.SalesInvoiceImportRequest.md) as `application/xml`
+[DataExchangeModel.Requests.SalesInvoiceImportRequest](../models/SalesInvoiceImportRequest.md) as `application/xml`
 
 **Response (200)**
 
-[DataExchangeModel.SalesInvoiceImportResponse](../models/DataExchangeModel.SalesInvoiceImportResponse.md)
+[DataExchangeModel.SalesInvoiceImportResponse](../models/SalesInvoiceImportResponse.md)

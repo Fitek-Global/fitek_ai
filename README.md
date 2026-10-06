@@ -14,11 +14,15 @@ AI tooling for [FitekIN](https://fitekin.com), Fitek's invoice-processing and AP
 This repo is also a Claude Code plugin marketplace, so in Claude Code you can add it without cloning or symlinking anything:
 
 ```
-/plugin marketplace add Fitek-Global/fitek_ai
+/plugin marketplace add https://github.com/Fitek-Global/fitek_ai.git
 /plugin install fitekin-api@fitek-ai
 ```
 
 Updates come with `/plugin marketplace update fitek-ai`. (While the repository is private you need GitHub access; once it is public this works for anyone.)
+
+Use the full HTTPS URL as shown. The short form `Fitek-Global/fitek_ai` may clone over SSH, which fails on a
+machine that has never connected to GitHub over SSH (`Host key verification failed`). If you prefer SSH,
+run `ssh -T git@github.com` once and accept the host key first.
 
 ### Option B — copy or symlink the folder
 
