@@ -9,7 +9,7 @@
     {
       "name": "fitekin-api",
       "description": "Teach an AI agent to work with FitekIN through its HTTP APIs and MCP server, no UI involved.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "source": "./",
       "author": {
         "name": "Fitek"
