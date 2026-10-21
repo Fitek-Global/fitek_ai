@@ -83,3 +83,15 @@ Requires Node.js 20 or newer. Hand-written guidance lives in `SKILL.md` and the 
 ## Contributing
 
 Open a pull request. Keep generated folders untouched in hand edits (regenerate instead), and never commit tokens, credentials, or environment-specific URLs other than the public hosts.
+
+### Bump the plugin version on every content change
+
+Claude Code caches an installed plugin per version (`~/.claude/plugins/cache/fitek-ai/fitekin-api/<version>/`).
+If a change to `skills/fitekin-api/` ships under an unchanged version, `claude plugin update fitekin-api`
+reports "already at the latest version" and existing installs keep the old content.
+
+Every pull request that changes anything under `skills/fitekin-api/` (hand edits or a regenerated reference set) must:
+
+1. Bump `version` in `.claude-plugin/plugin.json` — patch for doc-only changes, minor for new capabilities.
+2. Set the same `version` on the `fitekin-api` entry in `.claude-plugin/marketplace.json`.
+3. Run `claude plugin tag --dry-run` to confirm the two versions agree.
