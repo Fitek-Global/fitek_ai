@@ -3152,18 +3152,6 @@
         }
       }
     },
-    "/api/Status/Headers": {
-      "get": {
-        "tags": [
-          "Status"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Status/Version": {
       "get": {
         "tags": [

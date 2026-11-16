@@ -2,7 +2,7 @@
 
 Base path: `{BASE_URL}/LoginApi`. Anonymous. Returns the session token used by the Web API (see ../auth.md).
 
-Generated from `loginapi-v1.json` (OpenAPI 3.0.1). 53 endpoints, 32 models, 4 enums.
+Generated from `loginapi-v1.json` (OpenAPI 3.0.1). 52 endpoints, 32 models, 4 enums.
 
 Find the endpoint here, then open `endpoints/<Tag>.md` for parameters and `models/<Model>.md` for properties.
 
@@ -75,6 +75,5 @@ Find the endpoint here, then open `endpoints/<Tag>.md` for parameters and `model
 
 | Method | Path | Request body | Response |
 |---|---|---|---|
-| GET | `/api/Status/Headers` | — | — |
 | GET | `/api/Status/Status` | — | — |
 | GET | `/api/Status/Version` | — | — |
